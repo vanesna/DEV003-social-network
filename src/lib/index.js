@@ -1,6 +1,52 @@
 // aqui exportaras las funciones que necesites
 
-export const myFunction = () => {
-  // aqui tu codigo
-  console.log('Hola mundo!');
+// Import the functions you need from the SDKs you need
+
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+//Enlazamos visual con firebase
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyC_d9mt29SbKwKTzxAqIJlGr7q-H3i7PiA",
+  authDomain: "likeplants-c4327.firebaseapp.com",
+  projectId: "likeplants-c4327",
+  storageBucket: "likeplants-c4327.appspot.com",
+  messagingSenderId: "456213824098",
+  appId: "1:456213824098:web:fe3fb0aab88bf19d69073b",
+  measurementId: "G-49HPL6KVN9"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth();
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+  import { getFirestore } from "firebase/firestore";
+
+  // TODO: Replace the following with your app's Firebase project configuration
+  // See: https://firebase.google.com/docs/web/learn-more#config-object
+  const firebaseConfig = {
+      // ...
+  };
+  
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  
+  
+  // Initialize Cloud Firestore and get a reference to the service
+  const db = getFirestore(app);
+  
