@@ -36,3 +36,25 @@ top: 100px;
     display:grid;
     place-items: center;
 }
+
+@font-face {
+    font-family: glacial;
+    src: url(GlacialIndifference-Regular.otf);
+}
+@font-face {
+    font-family: chewy;
+    src: url(Chewy.ttf);
+}
+.inicio{
+    background-color: purple;
+}
+.bienvenidos{
+    font-family: chewy;
+    color: black;
+    font-size: 100%;
+}
+.intro{
+    font-family: glacial;
+    color: black;
+    font-size: 100%;
+}
