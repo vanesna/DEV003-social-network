@@ -3,7 +3,7 @@
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 //Enlazamos visual con firebase
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -23,6 +23,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Crear nueva cuenta pasando la dirección de correo electrónico y la contraseña del nuevo usuario
 const auth = getAuth();
 createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
@@ -35,16 +36,30 @@ createUserWithEmailAndPassword(auth, email, password)
     const errorMessage = error.message;
     // ..
   });
+
+    // Inicia sesión como usuario con una dirección de correo electrónico y una contraseña
+  
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  
   import { getFirestore } from "firebase/firestore";
 
-  // TODO: Replace the following with your app's Firebase project configuration
-  // See: https://firebase.google.com/docs/web/learn-more#config-object
-  const firebaseConfig = {
-      // ...
-  };
+
   
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+
+
+
+
+  
   
   
   // Initialize Cloud Firestore and get a reference to the service
