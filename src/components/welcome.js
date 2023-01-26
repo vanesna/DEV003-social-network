@@ -4,7 +4,5 @@ export default () => {
   const welcomeMessaje = document.createElement('div');
   welcomeMessaje.innerHTML = viewWelcome;
 
-  
-
   return welcomeMessaje;
 };

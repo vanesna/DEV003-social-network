@@ -1,53 +1,73 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
+@font-face {
+  font-family: glacial;
+  src: url(GlacialIndifference-Regular.otf);
+}
+
+@font-face {
+  font-family: chewy;
+  src: url(Chewy.ttf);
+}
+.contenedor {
+  margin-top: 10%;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.textobienvenida {
+  background-color: rgba(174, 223, 228, 0.45);
+  border: 1px solid #d9d9d9;
+  margin: 2%;
+  padding: 10px;
+  text-align: center;
+  width: 390px;
+  min-width: 350px;
+}
+
 .imagen {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    width: 365px;
-    height: 313px;
-    left: 31px;
-    top: 100px;
-
-}
-
-
-.inicio {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
-}
-
-@font-face {
-    font-family: glacial;
-    src: url(GlacialIndifference-Regular.otf);
-}
-
-@font-face {
-    font-family: chewy;
-    src: url(Chewy.ttf);
-}
-
-.inicio {
-    background-color: purple;
+  margin: 3%;
+  padding: 10px;
+  width: 365px;
+  height: 313px;
 }
 
 .bienvenidos {
-    font-family: chewy;
-    color: black;
-    font-size: 100%;
+  font-family: chewy;
+  color: black;
+  font-size: 3.5rem;
+  margin: 10px;
+  padding: 5px;
 }
 
 .intro {
-    font-family: glacial;
-    color: black;
-    font-size: 100%;
+  font-family: glacial;
+  color: black;
+  font-size: 2.5rem;
+  margin: 10px;
+}
+
+.start {
+  width: 50%;
+  height: 46px;
+  background: #bed73d;
+  border-radius: 13px;
+  font-family: 'Chewy';
+  font-size: 2.4rem;
+  margin: 3%;
+}
+
+@media screen and (max-width: 500px) {
+  html {
+    font-size: 45%;
+  }
 }

@@ -1,4 +1,4 @@
-// Este es el punto de entrada de tu aplicacion
+// Manejo del DOM, se crean las funciones
 
 import { myFunction } from './lib/index.js';
 
