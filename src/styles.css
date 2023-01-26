@@ -56,7 +56,7 @@ html {
   margin: 10px;
 }
 
-.start {
+a {
   width: 50%;
   height: 46px;
   background: #bed73d;
@@ -64,6 +64,8 @@ html {
   font-family: 'Chewy';
   font-size: 2.4rem;
   margin: 3%;
+  text-decoration: none;
+  color: white;
 }
 
 @media screen and (max-width: 500px) {
