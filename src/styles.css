@@ -17,7 +17,7 @@ html {
   src: url(Chewy.ttf);
 }
 .contenedor {
-  margin-top: 10%;
+  margin-top: 5%;
   padding: 30px;
   display: flex;
   flex-wrap: wrap;
@@ -72,4 +72,8 @@ a {
   html {
     font-size: 45%;
   }
+
+.contenedor {
+    margin-top: -2%;
+}
 }

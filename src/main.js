@@ -1,14 +1,23 @@
 // Manejo del DOM, se crean las funciones
+import { Welcome } from './components/welcome.js';
 
+const root = document.getElementById('root');
 
-//import { myFunction } from './lib/index.js';
+const routes = {
+  '/': Welcome,
+};
 
-//myFunction();
+const onNavigate = (pathname) => {
+  window.history.pushState(
+    {},
+    pathname,
+    window.location.origin + pathname,
+  );
+  root.appendChild(routes[pathname](onNavigate));
+};
 
+const component = routes[window.location.pathname];
 
-//vistas ejemplo conejolandia
+myFunction();
 
-const init = () => {
-    window.addEventListener("hashchange", () => console.log(window.location.hash))
-}
-window.addEventListener("load", init)
+// buenas buenas
