@@ -1,12 +1,21 @@
 // Manejo del DOM, se crean las funciones
+import { Welcome } from './components/welcome.js';
 
-import { myFunction } from './lib/index.js';
+const root = document.getElementById('root');
 
-myFunction();
-
-// Función para cambiar la url
-const init = () => {
-  window.addEventListener('hashchange', () => console.log(window.location.hash));
+const routes = {
+  '/': Welcome,
 };
 
-window.addEventListener('load', init);
+const onNavigate = (pathname) => {
+  window.history.pushState(
+    {},
+    pathname,
+    window.location.origin + pathname,
+  );
+  root.appendChild(routes[pathname](onNavigate));
+};
+
+const component = routes[window.location.pathname];
+
+root.appendChild(component());
