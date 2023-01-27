@@ -24,7 +24,3 @@ const component = routes[window.location.pathname];
 
 root.appendChild(component(onNavigate));
 
-const init = () => {
-    window.addEventListener("hashchange", () => console.log(window.location.hash))
-}
-window.addEventListener("load", init)
