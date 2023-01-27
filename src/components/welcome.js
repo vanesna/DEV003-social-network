@@ -24,4 +24,4 @@ export const Welcome = (onNavigate) => {
   main.append(imageLogo, div);
 
   return main;
-};
+};  ///hola mundo 

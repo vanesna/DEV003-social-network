@@ -35,28 +35,25 @@ createUserWithEmailAndPassword(auth, email, password)
 
     // Inicia sesión como usuario con una dirección de correo electrónico y una contraseña
   
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+  //   const auth = getAuth();
+  //   signInWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       // Signed in 
+  //       const user = userCredential.user;
+  //       // ...
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //     });
   
-  import { getFirestore } from "firebase/firestore";
-
-
-  
-
-
+  // import { getFirestore } from "firebase/firestore";
 
 
   
-  
+
+
+
   
   // Initialize Cloud Firestore and get a reference to the service
   const db = getFirestore(app);
