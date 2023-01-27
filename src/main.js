@@ -6,7 +6,8 @@ const root = document.getElementById('root');
 
 const routes = {
   '/': Welcome,
-  '/Login': Login,
+  '/login': Login,
+  // '/register': Register,
 };
 
 export const onNavigate = (pathname) => {
@@ -15,6 +16,7 @@ export const onNavigate = (pathname) => {
     pathname,
     window.location.origin + pathname,
   );
+  root.removeChild(root.firstChild);
   root.appendChild(routes[pathname](onNavigate));
 };
 
