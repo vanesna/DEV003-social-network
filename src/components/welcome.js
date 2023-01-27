@@ -1,4 +1,4 @@
-import { onNavigate } from "../main.js";
+// import { onNavigate } from "./main.js";
 
 export const Welcome = (onNavigate) => {
   const main = document.createElement('main');
@@ -20,8 +20,12 @@ export const Welcome = (onNavigate) => {
   textIntro.setAttribute('class', 'intro');
   startButton.setAttribute('class', 'start');
 
+  startButton.addEventListener('click', () => {
+    onNavigate('/login');
+  });
+
   div.append(textWelcome, textIntro, startButton);
   main.append(imageLogo, div);
 
   return main;
-};
+}; /// hola mundo
