@@ -20,10 +20,4 @@ export const onNavigate = (pathname) => {
 
 const component = routes[window.location.pathname];
 
-<<<<<<< HEAD
-myFunction();
-
-// buenas buenas
-=======
 root.appendChild(component(onNavigate));
->>>>>>> 7b6a88d7ec42f32c32a85de38ba4946ec1df53ea
