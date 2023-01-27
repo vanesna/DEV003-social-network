@@ -1,8 +1,18 @@
-export default () => {
-  const viewLogin = '<h1 class="bienvenidos">Iniciar sesión</h1>';
+import { onNavigate } from '../main.js';
 
-  const loginMessaje = document.createElement('div');
-  loginMessaje.innerHTML = viewLogin;
+export const Login = (onNavigate) => {
+  const div = document.createElement('div');
+  const imageLogo = document.createElement('img');
+  const textIntro = document.createElement('p');
 
-  return loginMessaje;
+  imageLogo.src = 'imagenes/logo.png';
+  textIntro.textContent = 'Inicia sesión';
+
+  imageLogo.setAttribute('class', 'imagen');
+  div.setAttribute('class', 'textobienvenida');
+  textIntro.setAttribute('class', 'intro');
+
+  div.append(imageLogo, textIntro);
+
+  return div;
 };
