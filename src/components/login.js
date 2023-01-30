@@ -8,15 +8,20 @@ export const Login = (onNavigate) => {
   imageLogo.src = 'imagenes/logo.png';
   imageLogo.setAttribute('class', 'imagen');
 
-  const div = document.createElement('div');
+  const formulario = document.createElement('form'); // cambie div por form, cree formulario
+  formulario.setAttribute('class', 'login');
 
   const name = document.createElement('input');
-  name.placeholder = 'Nombre de usuario';
+  name.placeholder = 'Nombre de usuario o Email';
   name.setAttribute('class', 'input');
+  name.type = 'text';
+  name.autocomplete = 'username'; // se agrego autocompletado
 
   const password = document.createElement('input');
-  password.placeholder = 'Contraseña';
+  password.placeholder = 'contraseña';
   password.setAttribute('class', 'input');
+  password.type = 'password';
+  password.autocomplete = 'current-password'; // se agrego autocompeltado
 
   const buttonLogin = document.createElement('button');
   buttonLogin.textContent = 'Iniciar Sesión';
@@ -33,10 +38,9 @@ export const Login = (onNavigate) => {
   buttonRegister.addEventListener('click', () => {
     onNavigate('/register');
   });
-  div.setAttribute('class', 'textobienvenida');
 
-  div.append(name, password, buttonLogin, buttonGoogle, buttonRegister);
-  main.append(imageLogo, div);
+  formulario.append(name, password, buttonLogin, buttonGoogle, buttonRegister);
+  main.append(imageLogo, formulario);
 
   return main;
 };

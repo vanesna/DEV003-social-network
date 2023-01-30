@@ -1,7 +1,7 @@
 // Manejo del DOM, se crean las funciones
 import { Welcome } from './components/welcome.js';
 import { Login } from './components/login.js';
-import { Register } from './components/register';
+import { Register } from './components/register.js';
 
 const root = document.getElementById('root');
 
@@ -24,3 +24,5 @@ export const onNavigate = (pathname) => {
 const component = routes[window.location.pathname];
 
 root.appendChild(component(onNavigate));
+
+ 
