@@ -1,4 +1,4 @@
-// import { onNavigate } from "./main.js";
+//import { onNavigate } from "./main.js";
 
 export const Welcome = (onNavigate) => {
   const main = document.createElement('main');
@@ -28,4 +28,4 @@ export const Welcome = (onNavigate) => {
   main.append(imageLogo, div);
 
   return main;
-}; /// hola mundo
+};  
