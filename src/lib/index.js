@@ -17,7 +17,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
 // Crear nueva cuenta pasando la dirección de correo electrónico y la contraseña del nuevo usuario
 const auth = getAuth();

@@ -30,8 +30,9 @@ export const Login = (onNavigate) => {
   buttonRegister.textContent = 'Registrate';
   buttonRegister.setAttribute('class', 'start');
 
-  
-
+  buttonRegister.addEventListener('click', () => {
+    onNavigate('/register');
+  });
   div.setAttribute('class', 'textobienvenida');
 
   div.append(name, password, buttonLogin, buttonGoogle, buttonRegister);
