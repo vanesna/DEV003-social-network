@@ -6,11 +6,13 @@ export const Register = (onNavigate) => {
   imageLogo.src = 'imagenes/logo.png';
   imageLogo.setAttribute('class', 'imagen');
 
-  const div = document.createElement('div');
+  const formulario = document.createElement('form');
+  formulario.setAttribute('class', 'signin');
 
   const name = document.createElement('input');
   name.placeholder = 'Nombre de usuario';
   name.setAttribute('class', 'input');
+  name.type = 'text';
 
   const email = document.createElement('input');
   email.placeholder = 'Correo electrónico';
@@ -19,10 +21,12 @@ export const Register = (onNavigate) => {
 
   const password = document.createElement('input');
   password.placeholder = 'Contraseña';
+  password.type = 'password';
   password.setAttribute('class', 'input');
 
   const password2 = document.createElement('input');
   password2.placeholder = 'Confirma contraseña';
+  password2.type = 'password';
   password2.setAttribute('class', 'input');
 
   const buttonRegister = document.createElement('button');
@@ -30,10 +34,9 @@ export const Register = (onNavigate) => {
   buttonRegister.setAttribute('class', 'start');
 
   imageLogo.setAttribute('class', 'imagen');
-  div.setAttribute('class', 'textobienvenida');
 
-  div.append(name, email, password, password2, buttonRegister);
-  main.append(imageLogo, div);
+  formulario.append(name, email, password, password2, buttonRegister);
+  main.append(imageLogo, formulario);
 
   return main;
 };
