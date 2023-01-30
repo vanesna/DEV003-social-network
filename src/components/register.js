@@ -1,3 +1,6 @@
+//import { onNavigate } from './main.js';
+
+
 // export const Register = (onNavigate) => {
 //     const main = document.createElement('main');
 //     const imageLogo = document.createElement('img');
