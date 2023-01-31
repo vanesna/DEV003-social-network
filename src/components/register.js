@@ -1,3 +1,7 @@
+// import { onNavigate } from "./main.js";
+import { register } from '../lib/firebase.js';
+
+export const Register = () => {
 // import { onNavigate } from './main.js';
 
 
@@ -9,7 +13,7 @@ export const Register = (onNavigate) => {
   imageLogo.src = 'imagenes/logo.png';
   imageLogo.setAttribute('class', 'imagen');
 
-  const formulario = document.createElement('form');
+  const formulario = document.createElement('div');
   formulario.setAttribute('class', 'signin');
 
   const name = document.createElement('input');
@@ -37,10 +41,27 @@ export const Register = (onNavigate) => {
   buttonRegister.textContent = 'Aceptar';
   buttonRegister.setAttribute('class', 'start');
 
-  imageLogo.setAttribute('class', 'imagen');
-
   formulario.append(name, email, password, password2, buttonRegister);
   main.append(imageLogo, formulario);
+
+  const createAccount = () => {
+    const signinName = name.value;
+    const signinEmail = email.value;
+    const signinPassword = password.value;
+    const confirmPassword = password2.value;
+
+    console.log(signinName, signinEmail, signinPassword, confirmPassword);
+
+    try {
+      const userCredential = register(email, password);
+      console.log(userCredential);
+      // const user = userCredential.user;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  buttonRegister.addEventListener('click', createAccount);
 
   return main;
 };

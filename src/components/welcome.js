@@ -1,5 +1,3 @@
-//import { onNavigate } from "./main.js";
-
 export const Welcome = (onNavigate) => {
   const main = document.createElement('main');
   const imageLogo = document.createElement('img');
@@ -28,4 +26,4 @@ export const Welcome = (onNavigate) => {
   main.append(imageLogo, div);
 
   return main;
-};  
+};
