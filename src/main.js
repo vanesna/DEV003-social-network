@@ -11,7 +11,7 @@ const routes = {
   '/register': Register,
 };
 
-export const onNavigate = (pathname) => {
+const onNavigate = (pathname) => {
   window.history.pushState(
     {},
     pathname,
@@ -24,5 +24,3 @@ export const onNavigate = (pathname) => {
 const component = routes[window.location.pathname];
 
 root.appendChild(component(onNavigate));
-
- 

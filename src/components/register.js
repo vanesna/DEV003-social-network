@@ -1,6 +1,5 @@
 // import { onNavigate } from "./main.js";
-import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
-import { auth } from '../lib/firebase';
+import { register } from '../lib/firebase.js';
 
 export const Register = () => {
   const main = document.createElement('main');
@@ -10,7 +9,7 @@ export const Register = () => {
   imageLogo.src = 'imagenes/logo.png';
   imageLogo.setAttribute('class', 'imagen');
 
-  const formulario = document.createElement('form');
+  const formulario = document.createElement('div');
   formulario.setAttribute('class', 'signin');
 
   const name = document.createElement('input');
@@ -40,7 +39,7 @@ export const Register = () => {
   formulario.append(name, email, password, password2, buttonRegister);
   main.append(imageLogo, formulario);
 
-  const createAccount = async () => {
+  const createAccount = () => {
     const signinName = name.value;
     const signinEmail = email.value;
     const signinPassword = password.value;
@@ -49,7 +48,7 @@ export const Register = () => {
     console.log(signinName, signinEmail, signinPassword, confirmPassword);
 
     try {
-      const userCredential = createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = register(email, password);
       console.log(userCredential);
       // const user = userCredential.user;
     } catch (error) {

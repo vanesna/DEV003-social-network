@@ -1,5 +1,3 @@
-import { onNavigate } from './main.js';
-
 export const Login = (onNavigate) => {
   const main = document.createElement('main');
   main.setAttribute('class', 'contenedor');
