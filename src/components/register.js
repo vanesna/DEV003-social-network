@@ -1,8 +1,5 @@
-// import { onNavigate } from "./main.js";
-import { register } from '../lib/firebase.js';
 
-export const Register = () => {
-// import { onNavigate } from './main.js';
+import { register } from '../lib/firebase.js';
 
 
 export const Register = (onNavigate) => {
