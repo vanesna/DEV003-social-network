@@ -1,3 +1,6 @@
+// import { onNavigate } from './main.js';
+
+
 export const Register = (onNavigate) => {
   const main = document.createElement('main');
   main.setAttribute('class', 'contenedor');
@@ -13,6 +16,7 @@ export const Register = (onNavigate) => {
   name.placeholder = 'Nombre de usuario';
   name.setAttribute('class', 'input');
   name.type = 'text';
+  name.autocomplete = 'username'
 
   const email = document.createElement('input');
   email.placeholder = 'Correo electrónico';

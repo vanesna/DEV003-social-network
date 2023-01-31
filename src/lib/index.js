@@ -1,9 +1,10 @@
-// aqui exportaras las funciones que necesites
+// aqui importas las funciones que necesites
 
-// Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+
 //Enlazamos visual con firebase
 
 const firebaseConfig = {
@@ -16,22 +17,21 @@ const firebaseConfig = {
   measurementId: "G-49HPL6KVN9"
 };
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+
 
 // Crear nueva cuenta pasando la dirección de correo electrónico y la contraseña del nuevo usuario
-const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
+// const auth = getAuth();
+// createUserWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed in 
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // ..
+//   });
 
     // Inicia sesión como usuario con una dirección de correo electrónico y una contraseña
   
@@ -51,10 +51,9 @@ createUserWithEmailAndPassword(auth, email, password)
 
 
   
-
-
-
-  
   // Initialize Cloud Firestore and get a reference to the service
+  // Initialize Firebase
+  export const app = initializeApp(firebaseConfig);
+  export const auth= getAuth(app) //constante para autenticar usuarios
   const db = getFirestore(app);
   

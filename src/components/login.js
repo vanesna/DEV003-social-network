@@ -26,6 +26,7 @@ export const Login = (onNavigate) => {
   const buttonLogin = document.createElement('button');
   buttonLogin.textContent = 'Iniciar Sesión';
   buttonLogin.setAttribute('class', 'start');
+  buttonLogin.type= 'submit';
 
   const buttonGoogle = document.createElement('button');
   buttonGoogle.textContent = 'Inicia sesión con Google';
@@ -34,6 +35,7 @@ export const Login = (onNavigate) => {
   const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Registrate';
   buttonRegister.setAttribute('class', 'start');
+  buttonRegister.type= 'submit';
 
   buttonRegister.addEventListener('click', () => {
     onNavigate('/register');
