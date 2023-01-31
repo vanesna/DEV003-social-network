@@ -1,3 +1,8 @@
+//import { onNavigate } from "./main.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { async } from "regenerator-runtime";
+import { auth } from "../lib/firebase"; 
+
 export const Register = (onNavigate) => {
   const main = document.createElement('main');
   main.setAttribute('class', 'contenedor');
@@ -33,10 +38,32 @@ export const Register = (onNavigate) => {
   buttonRegister.textContent = 'Aceptar';
   buttonRegister.setAttribute('class', 'start');
 
-  imageLogo.setAttribute('class', 'imagen');
-
   formulario.append(name, email, password, password2, buttonRegister);
   main.append(imageLogo, formulario);
+
+  const createAccount = async () => {
+    
+    const signinName = name.value;
+    const signinEmail = email.value;
+    const signinPassword = password.value;
+    const confirmPassword = password2.value;
+
+    console.log(signinName, signinEmail, signinPassword, confirmPassword);
+
+  createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+  }
+
+  buttonRegister.addEventListener('click', createAccount);
 
   return main;
 };

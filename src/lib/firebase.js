@@ -2,8 +2,8 @@
 
 // Import the functions you need from the SDKs you need
 
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 //Enlazamos visual con firebase
 
 const firebaseConfig = {
@@ -20,18 +20,8 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 // Crear nueva cuenta pasando la dirección de correo electrónico y la contraseña del nuevo usuario
-const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
+export const auth = getAuth(app);
+
 
     // Inicia sesión como usuario con una dirección de correo electrónico y una contraseña
   
@@ -56,5 +46,5 @@ createUserWithEmailAndPassword(auth, email, password)
 
   
   // Initialize Cloud Firestore and get a reference to the service
-  const db = getFirestore(app);
+  //const db = getFirestore(app);
   
