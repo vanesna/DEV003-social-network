@@ -1,9 +1,8 @@
-//import { onNavigate } from "./main.js";
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-import { async } from "regenerator-runtime";
-import { auth } from "../lib/firebase"; 
+// import { onNavigate } from "./main.js";
+import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+import { auth } from '../lib/firebase';
 
-export const Register = (onNavigate) => {
+export const Register = () => {
   const main = document.createElement('main');
   main.setAttribute('class', 'contenedor');
 
@@ -42,7 +41,6 @@ export const Register = (onNavigate) => {
   main.append(imageLogo, formulario);
 
   const createAccount = async () => {
-    
     const signinName = name.value;
     const signinEmail = email.value;
     const signinPassword = password.value;
@@ -50,18 +48,14 @@ export const Register = (onNavigate) => {
 
     console.log(signinName, signinEmail, signinPassword, confirmPassword);
 
-  createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
-  }
+    try {
+      const userCredential = createUserWithEmailAndPassword(auth, email, password);
+      console.log(userCredential);
+      // const user = userCredential.user;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   buttonRegister.addEventListener('click', createAccount);
 
