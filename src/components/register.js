@@ -13,15 +13,6 @@ export const Register = (onNavigate) => {
   const formulario = document.createElement('form');
   formulario.setAttribute('class', 'signin');
 
-<<<<<<< HEAD
-  const name = document.createElement('input');
-  name.placeholder = 'Nombre de usuario';
-  name.setAttribute('class', 'input');
-  name.type = 'text';
-  name.autocomplete = 'username'
-
-=======
->>>>>>> 1be583895ee456ae8846302458be86eeaf6ef824
   const email = document.createElement('input');
   email.placeholder = 'Correo electrónico';
   email.type = 'email';
@@ -37,17 +28,10 @@ export const Register = (onNavigate) => {
   const password2 = document.createElement('input');
   password2.placeholder = 'Confirma contraseña';
   password2.type = 'password';
-<<<<<<< HEAD
-  password2.setAttribute('class', 'input');
-  
-  console.log(password, password2);
-
-=======
   password2.setAttribute('class', 'box');
   password2.id="confirmPassword";
   
   
->>>>>>> 1be583895ee456ae8846302458be86eeaf6ef824
   const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Aceptar';
   buttonRegister.setAttribute('class', 'start');
