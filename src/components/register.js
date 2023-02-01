@@ -1,6 +1,4 @@
-
 import { register } from '../lib/firebase.js';
-
 
 export const Register = (onNavigate) => {
   const main = document.createElement('main');
@@ -24,26 +22,21 @@ export const Register = (onNavigate) => {
   password.type = 'password';
   password.required = 'true';
   password.setAttribute('class', 'box');
-  password.id="password";
-
+  password.id = 'password';
 
   const password2 = document.createElement('input');
   password2.placeholder = 'Confirma contraseña';
   password2.type = 'password';
   password2.required = 'true';
   password2.setAttribute('class', 'box');
-  password2.id="confirmPassword";
-  
-  
+  password2.id = 'confirmPassword';
+
   const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Aceptar';
   buttonRegister.setAttribute('class', 'start');
 
   formulario.append(email, password, password2, buttonRegister);
   main.append(imageLogo, formulario);
-
- 
-
 
   const createAccount = () => {
     const signinEmail = email.value;
@@ -61,25 +54,24 @@ export const Register = (onNavigate) => {
     }
   };
   function validatePassword() {
-    var password = document.getElementById("password").value;
-    var confirmPassword = document.getElementById("confirmPassword").value;
-    if (password != confirmPassword) {
-      alert("Las contraseñas no coinciden");
-      document.getElementById("confirmPassword").value = '';
+    const passwordValidate = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    if (passwordValidate !== confirmPassword) {
+      alert('Las contraseñas no coinciden');
+      document.getElementById('confirmPassword').value = '';
       return false;
     }
     return true;
   }
-  
+
   buttonRegister.addEventListener('click', () => {
-    var functionPassword = validatePassword();
-    const auth_token = register(email.value, password.value);
-    //console.log(name.textContent)
-    alert(auth_token)
+    const functionPassword = validatePassword();
+    const authToken = register(email.value, password.value);
+    // console.log(name.textContent)
+    alert(authToken);
   });
 
-  //buttonRegister.addEventListener('click', createAccount);
+  // buttonRegister.addEventListener('click', createAccount);
 
   return main;
 };
-
