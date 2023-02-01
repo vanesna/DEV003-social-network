@@ -22,6 +22,8 @@ export const app = initializeApp(firebaseConfig);
 // Crear nueva cuenta pasando la dirección de correo electrónico y la contraseña del nuevo usuario
 const auth = getAuth(app);
 export const register = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+export const login= (email, password) => signInWithEmailAndPassword(auth, email, password);
+
 
 // Inicia sesión como usuario con una dirección de correo electrónico y una contraseña
 
