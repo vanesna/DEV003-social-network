@@ -12,15 +12,17 @@ export const Login = (onNavigate) => {
   formulario.setAttribute('class', 'login');
 
   const name = document.createElement('input');
-  name.placeholder = 'Nombre de usuario o Email';
+  name.placeholder = 'Email';
   name.setAttribute('class', 'box');
   name.type = 'text';
+  name.required = 'true';
   name.autocomplete = 'email'; // se agrego autocompletado
 
   const password = document.createElement('input');
   password.placeholder = 'contraseña';
   password.setAttribute('class', 'box');
   password.type = 'password';
+  password.required = 'true';
   password.autocomplete = 'current-password'; // se agrego autocompeltado
 
   const buttonLogin = document.createElement('button');

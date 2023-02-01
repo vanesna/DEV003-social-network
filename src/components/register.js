@@ -16,11 +16,13 @@ export const Register = (onNavigate) => {
   const email = document.createElement('input');
   email.placeholder = 'Correo electrónico';
   email.type = 'email';
+  email.required = 'true';
   email.setAttribute('class', 'box');
 
   const password = document.createElement('input');
   password.placeholder = 'Contraseña';
   password.type = 'password';
+  password.required = 'true';
   password.setAttribute('class', 'box');
   password.id="password";
 
@@ -28,6 +30,7 @@ export const Register = (onNavigate) => {
   const password2 = document.createElement('input');
   password2.placeholder = 'Confirma contraseña';
   password2.type = 'password';
+  password2.required = 'true';
   password2.setAttribute('class', 'box');
   password2.id="confirmPassword";
   
@@ -40,7 +43,6 @@ export const Register = (onNavigate) => {
   main.append(imageLogo, formulario);
 
  
-  
 
 
   const createAccount = () => {
