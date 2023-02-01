@@ -29,10 +29,13 @@ export const Register = (onNavigate) => {
   password.type = 'password';
   password.setAttribute('class', 'input');
 
+
   const password2 = document.createElement('input');
   password2.placeholder = 'Confirma contraseña';
   password2.type = 'password';
   password2.setAttribute('class', 'input');
+  
+  console.log(password, password2);
 
   const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Aceptar';
