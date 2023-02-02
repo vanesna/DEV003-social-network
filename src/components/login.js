@@ -1,4 +1,4 @@
-import {login} from "../lib/firebase"
+import { login } from '../lib/firebase';
 
 export const Login = (onNavigate) => {
   const main = document.createElement('main');
@@ -28,7 +28,7 @@ export const Login = (onNavigate) => {
   const buttonLogin = document.createElement('button');
   buttonLogin.textContent = 'Iniciar Sesión';
   buttonLogin.setAttribute('class', 'start');
-  buttonLogin.type= 'submit';
+  buttonLogin.type = 'submit';
 
   const buttonGoogle = document.createElement('button');
   buttonGoogle.textContent = 'Inicia sesión con Google';
@@ -37,12 +37,13 @@ export const Login = (onNavigate) => {
   const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Registrate';
   buttonRegister.setAttribute('class', 'start');
-  buttonRegister.type= 'submit';
+  buttonRegister.type = 'submit';
 
-  buttonLogin.addEventListener('click', () => {
-    const auth_token = login(name.value, password.value);
-    //console.log(name.textContent)
-    alert(auth_token)
+  buttonLogin.addEventListener('click', (e) => {
+    e.preventDefault();
+    const authToken = login(name.value, password.value);
+    // console.log(name.textContent)
+    alert(authToken);
   });
 
   buttonRegister.addEventListener('click', () => {
