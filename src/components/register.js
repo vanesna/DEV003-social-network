@@ -38,21 +38,6 @@ export const Register = (onNavigate) => {
   formulario.append(email, password, password2, buttonRegister);
   main.append(imageLogo, formulario);
 
-  const createAccount = () => {
-    const signinEmail = email.value;
-    const signinPassword = password.value;
-    const confirmPassword = password2.value;
-
-    console.log(signinName, signinEmail, signinPassword, confirmPassword);
-
-    try {
-      const userCredential = register(email, password);
-      console.log(userCredential);
-      // const user = userCredential.user;
-    } catch (error) {
-      console.log(error);
-    }
-  };
   function validatePassword() {
     const passwordValidate = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
@@ -78,17 +63,16 @@ export const Register = (onNavigate) => {
     .then(number => console.log(number))
     .catch(error => console.error(error));
 
-
-
-
-  buttonRegister.addEventListener('click', () => {
+  buttonRegister.addEventListener('click', (e) => {
+    e.preventDefault(); // No recargue la página
     const functionPassword = validatePassword();
-    const authToken = register(email.value, password.value);
-    // console.log(name.textContent)
-    alert(authToken);
+    if (functionPassword === true) { // Verdadero si las contraseñas coinciden
+      console.log('functionPassword: ', functionPassword);
+      const authToken = register(email.value, password.value);
+      // console.log(name.textContent)
+      alert(authToken);
+    }
   });
-
-  // buttonRegister.addEventListener('click', createAccount);
 
   return main;
 };
