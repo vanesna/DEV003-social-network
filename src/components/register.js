@@ -35,7 +35,7 @@ export const Register = (onNavigate) => {
   buttonRegister.textContent = 'Aceptar';
   buttonRegister.setAttribute('class', 'start');
 
-  formulario.append(email, parrafo, password, password2, buttonRegister);
+  formulario.append(email, password, password2, buttonRegister);
   main.append(imageLogo, formulario);
 
   const createAccount = () => {
@@ -43,11 +43,12 @@ export const Register = (onNavigate) => {
     const signinPassword = password.value;
     const confirmPassword = password2.value;
 
-    console.log(signinEmail, signinPassword, confirmPassword);
+    console.log(signinName, signinEmail, signinPassword, confirmPassword);
 
     try {
-      const userCredential = register(email, password, confirmPassword);
+      const userCredential = register(email, password);
       console.log(userCredential);
+      // const user = userCredential.user;
     } catch (error) {
       console.log(error);
     }
@@ -62,9 +63,25 @@ export const Register = (onNavigate) => {
     }
     return true;
   }
+  const promise = new Promise((resolve, reject) => {
+    const number = Math.floor(Math.random() * 10);
+  
+    setTimeout(
+      () => number > 5
+        ? resolve(number)
+        : reject(new Error('Menor a 5')),
+      1000
+    );
+  });
+  
+  promise
+    .then(number => console.log(number))
+    .catch(error => console.error(error));
 
-  buttonRegister.addEventListener('click', (e) => {
-    e.preventDefault();
+
+
+
+  buttonRegister.addEventListener('click', () => {
     const functionPassword = validatePassword();
     const authToken = register(email.value, password.value);
     // console.log(name.textContent)
