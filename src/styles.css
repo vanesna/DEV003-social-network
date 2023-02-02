@@ -91,12 +91,12 @@ html {
    text-align: center;
    text-decoration: none;
    padding: 0 8px;
-   margin: 0px auto;
-  font: 13px/27px Arial,sans-serif;
+   margin: 10px;
+   font: 13px/27px Arial,sans-serif;
   cursor:hand;
 }
 
-.input {
+.box {
   width: 80%;
   height: 46px;
   margin: 20px;
@@ -110,4 +110,28 @@ html {
 .contenedor {
     margin-top: -2%;
 }
+}
+
+footer{
+  
+  justify-content: center;
+  bottom: 0;
+  width:100%;
+  margin-top: 5%;
+  padding: 30px;
+  
+}
+.footerTitle{
+  text-align: center;
+  font-size: 1.5rem;
+
+}
+.footerAutoras{
+  text-align: center;
+  font-size: 1rem;
+}
+.banderas{
+  width: 80px;
+  height: 20px;
+  
 }

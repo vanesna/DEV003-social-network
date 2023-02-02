@@ -1,3 +1,5 @@
+import { login } from '../lib/firebase';
+
 export const Login = (onNavigate) => {
   const main = document.createElement('main');
   main.setAttribute('class', 'contenedor');
@@ -10,20 +12,23 @@ export const Login = (onNavigate) => {
   formulario.setAttribute('class', 'login');
 
   const name = document.createElement('input');
-  name.placeholder = 'Nombre de usuario o Email';
-  name.setAttribute('class', 'input');
+  name.placeholder = 'Email';
+  name.setAttribute('class', 'box');
   name.type = 'text';
-  name.autocomplete = 'username'; // se agrego autocompletado
+  name.required = 'true';
+  name.autocomplete = 'email'; // se agrego autocompletado
 
   const password = document.createElement('input');
   password.placeholder = 'contraseña';
-  password.setAttribute('class', 'input');
+  password.setAttribute('class', 'box');
   password.type = 'password';
+  password.required = 'true';
   password.autocomplete = 'current-password'; // se agrego autocompeltado
 
   const buttonLogin = document.createElement('button');
   buttonLogin.textContent = 'Iniciar Sesión';
   buttonLogin.setAttribute('class', 'start');
+  buttonLogin.type = 'submit';
 
   const buttonGoogle = document.createElement('button');
   buttonGoogle.textContent = 'Inicia sesión con Google';
@@ -32,6 +37,14 @@ export const Login = (onNavigate) => {
   const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Registrate';
   buttonRegister.setAttribute('class', 'start');
+  buttonRegister.type = 'submit';
+
+  buttonLogin.addEventListener('click', (e) => {
+    e.preventDefault();
+    const authToken = login(name.value, password.value);
+    // console.log(name.textContent)
+    alert(authToken);
+  });
 
   buttonRegister.addEventListener('click', () => {
     onNavigate('/register');
