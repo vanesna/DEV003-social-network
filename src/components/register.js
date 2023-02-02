@@ -35,23 +35,9 @@ export const Register = (onNavigate) => {
   buttonRegister.textContent = 'Aceptar';
   buttonRegister.setAttribute('class', 'start');
 
-  formulario.append(email, parrafo, password, password2, buttonRegister);
+  formulario.append(email, password, password2, buttonRegister);
   main.append(imageLogo, formulario);
 
-  const createAccount = () => {
-    const signinEmail = email.value;
-    const signinPassword = password.value;
-    const confirmPassword = password2.value;
-
-    console.log(signinEmail, signinPassword, confirmPassword);
-
-    try {
-      const userCredential = register(email, password, confirmPassword);
-      console.log(userCredential);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   function validatePassword() {
     const passwordValidate = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
@@ -64,14 +50,15 @@ export const Register = (onNavigate) => {
   }
 
   buttonRegister.addEventListener('click', (e) => {
-    e.preventDefault();
+    e.preventDefault(); // No recargue la página
     const functionPassword = validatePassword();
-    const authToken = register(email.value, password.value);
-    // console.log(name.textContent)
-    alert(authToken);
+    if (functionPassword === true) { // Verdadero si las contraseñas coinciden
+      console.log('functionPassword: ', functionPassword);
+      const authToken = register(email.value, password.value);
+      // console.log(name.textContent)
+      alert(authToken);
+    }
   });
-
-  // buttonRegister.addEventListener('click', createAccount);
 
   return main;
 };
