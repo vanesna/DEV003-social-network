@@ -34,6 +34,7 @@ export const Register = (onNavigate) => {
   const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Aceptar';
   buttonRegister.setAttribute('class', 'start');
+  buttonRegister.type = 'submit';
 
   formulario.append(email, password, password2, buttonRegister);
   main.append(imageLogo, formulario);
@@ -55,6 +56,21 @@ export const Register = (onNavigate) => {
     if (functionPassword === true) { // Verdadero si las contraseñas coinciden
       console.log('functionPassword: ', functionPassword);
       const authToken = register(email.value, password.value);
+      authToken.then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log('user: ', user);
+        alert('Registro exitoso');
+      })
+        .catch((error) => {
+          alert('Algo salio mal');
+          const errorCode = error.code;
+          console.log('errorCode: ', errorCode);
+          const errorMessage = error.message;
+          alert(errorMessage);
+
+        // ..
+        });
       // console.log(name.textContent)
       alert(authToken);
     }
