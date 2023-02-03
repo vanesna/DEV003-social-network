@@ -37,7 +37,7 @@ export const Register = (onNavigate) => {
 
   formulario.append(email, password, password2, buttonRegister);
   main.append(imageLogo, formulario);
-
+  // función para validar contraseñas
   function validatePassword() {
     const passwordValidate = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;

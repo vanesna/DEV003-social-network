@@ -39,7 +39,7 @@ export const Login = (onNavigate) => {
   buttonRegister.setAttribute('class', 'start');
   buttonRegister.type = 'submit';
 
-  buttonLogin.addEventListener('click', (e) => {
+  buttonLogin.addEventListener('click', (e) => { // no recargar la página
     e.preventDefault();
     const authToken = login(name.value, password.value);
     // console.log(name.textContent)
