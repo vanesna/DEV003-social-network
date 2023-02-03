@@ -32,7 +32,7 @@ export const Register = (onNavigate) => {
   password2.id = 'confirmPassword';
 
   const buttonRegister = document.createElement('button');
-  buttonRegister.textContent = 'Aceptar';
+  buttonRegister.textContent = 'Registrar';
   buttonRegister.setAttribute('class', 'start');
   buttonRegister.type = 'submit';
 
@@ -61,18 +61,38 @@ export const Register = (onNavigate) => {
         const user = userCredential.user;
         console.log('user: ', user);
         alert('Registro exitoso');
+        onNavigate('/login');
       })
         .catch((error) => {
-          alert('Algo salio mal');
           const errorCode = error.code;
+          let message;
+          if (errorCode === 'auth/weak-password') {
+            message = 'La contraseña debe contener al menos 6 carácteres';
+          }
+          if (errorCode === 'auth/missing-email') {
+            message = 'Olvidaste ingresar tu correo electrónico';
+          }
+          if (errorCode === 'auth/invalid-email') {
+            message = 'Ingresa un correo electrónico válido';
+          }
+          if (errorCode === 'auth/internal-error') {
+            message = 'Ingresa una contraseña';
+          }
+          if (errorCode === 'auth/email-already-in-use') {
+            message = 'El correo electrónico ingresado ya ha sido registrado';
+          }
           console.log('errorCode: ', errorCode);
           const errorMessage = error.message;
-          alert(errorMessage);
+          console.log('errorMessage: ', errorMessage);
+          alert(message);
 
         // ..
         });
-      // console.log(name.textContent)
-      alert(authToken);
+      // auth/weak-password contrasena corta +6
+      // auth/missing-email
+      // auth/invalid-email
+      // auth/internal-error no ingrese contrasena
+      // auth/email-already-in-use
     }
   });
 

@@ -24,4 +24,3 @@ const onNavigate = (pathname) => {// es el "/" de cada ruta, nombre de la ruta
 const component = routes[window.location.pathname]; // muestra el html dinámico
 
 root.appendChild(component(onNavigate));
-

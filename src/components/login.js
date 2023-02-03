@@ -11,12 +11,12 @@ export const Login = (onNavigate) => {
   const formulario = document.createElement('form'); // cambie div por form, cree formulario
   formulario.setAttribute('class', 'login');
 
-  const name = document.createElement('input');
-  name.placeholder = 'Email';
-  name.setAttribute('class', 'box');
-  name.type = 'text';
-  name.required = 'true';
-  name.autocomplete = 'email'; // se agrego autocompletado
+  const email = document.createElement('input');
+  email.placeholder = 'Email';
+  email.setAttribute('class', 'box');
+  email.type = 'text';
+  email.required = 'true';
+  email.autocomplete = 'email'; // se agrego autocompletado
 
   const password = document.createElement('input');
   password.placeholder = 'contraseña';
@@ -30,6 +30,9 @@ export const Login = (onNavigate) => {
   buttonLogin.setAttribute('class', 'start');
   buttonLogin.type = 'submit';
 
+  const forgotPassword = document.createElement('p');
+  forgotPassword.textContent = 'Olvide mi contraseña';
+
   const buttonGoogle = document.createElement('button');
   buttonGoogle.textContent = 'Inicia sesión con Google';
   buttonGoogle.setAttribute('class', 'google');
@@ -39,19 +42,44 @@ export const Login = (onNavigate) => {
   buttonRegister.setAttribute('class', 'start');
   buttonRegister.type = 'submit';
 
-  buttonLogin.addEventListener('click', (e) => { // no recargar la página
-    e.preventDefault();
-    const authToken = login(name.value, password.value);
-    // console.log(name.textContent)
-    alert(authToken);
-  });
+  formulario.append(email, password, buttonLogin, forgotPassword, buttonGoogle, buttonRegister);
+  main.append(imageLogo, formulario);
 
   buttonRegister.addEventListener('click', () => {
     onNavigate('/register');
   });
 
-  formulario.append(name, password, buttonLogin, buttonGoogle, buttonRegister);
-  main.append(imageLogo, formulario);
+  buttonLogin.addEventListener('click', (e) => {
+    e.preventDefault(); // No recargue la página
+    const userLogin = login(email.value, password.value);
+    userLogin.then((userCredential) => {
+      // Login
+      const user = userCredential.user;
+      console.log('user: ', user);
+      alert('Inicio de sesión exitoso');
+    })
+      .catch((error) => {
+        const errorCode = error.code;
+        let message;
+        if (errorCode === 'auth/wrong-password') {
+          message = 'Contraseña incorrecta';
+        }
+        if (errorCode === 'auth/invalid-email') {
+          message = 'Ingresa un correo válido';
+        }
+        if (errorCode === 'auth/internal-error') {
+          message = 'Olvidaste la contraseña';
+        }
+
+        if (errorCode === 'auth/user-not-found') {
+          message = 'El correo electrónico ingresado no ha sido registrado';
+        }
+        console.log('errorCode: ', errorCode);
+        const errorMessage = error.message;
+        console.log('errorMessage: ', errorMessage);
+        alert(message);
+      });
+  });
 
   return main;
 };
