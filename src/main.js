@@ -4,14 +4,14 @@ import { Login } from './components/login.js';
 import { Register } from './components/register.js';
 
 const root = document.getElementById('root');
-
+// Nuestras rutas
 const routes = {
   '/': Welcome,
   '/login': Login,
   '/register': Register,
 };
 
-const onNavigate = (pathname) => {// es el "/" de cada ruta
+const onNavigate = (pathname) => {// es el "/" de cada ruta, nombre de la ruta
   window.history.pushState( // queda registrado el historial en el navegador
     {},
     pathname,
