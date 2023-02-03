@@ -24,4 +24,3 @@ const onNavigate = (pathname) => {
 const component = routes[window.location.pathname];
 
 root.appendChild(component(onNavigate));
-
