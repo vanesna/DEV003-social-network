@@ -1,21 +1,26 @@
 import { register } from '../lib/firebase.js';
 
 export const Register = (onNavigate) => {
-  const main = document.createElement('main');
-  main.setAttribute('class', 'contenedor');
+  const contenedor = document.createElement('div');
+  contenedor.setAttribute('class', 'contenedor');
+  contenedor.id = 'viewconteiner';
 
   const imageLogo = document.createElement('img');
   imageLogo.src = 'imagenes/logo.png';
   imageLogo.setAttribute('class', 'imagen');
+  contenedor.id = 'imagenLogo';
 
   const formulario = document.createElement('form');
   formulario.setAttribute('class', 'signin');
+  contenedor.id = 'form';
 
   const email = document.createElement('input');
   email.placeholder = 'Correo electrónico';
   email.type = 'email';
   email.required = 'true';
   email.setAttribute('class', 'box');
+  email.autocomplete = 'email';
+  contenedor.id = 'inputEmail';
 
   const password = document.createElement('input');
   password.placeholder = 'Contraseña';
@@ -23,6 +28,8 @@ export const Register = (onNavigate) => {
   password.required = 'true';
   password.setAttribute('class', 'box');
   password.id = 'password';
+  password.autocomplete = 'new-password';
+  contenedor.id = 'inputPassword';
 
   const password2 = document.createElement('input');
   password2.placeholder = 'Confirma contraseña';
@@ -30,14 +37,17 @@ export const Register = (onNavigate) => {
   password2.required = 'true';
   password2.setAttribute('class', 'box');
   password2.id = 'confirmPassword';
+  password2.autocomplete = 'new-password';
+  contenedor.id = 'inputPassword2';
 
   const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Registrar';
   buttonRegister.setAttribute('class', 'start');
   buttonRegister.type = 'submit';
+  contenedor.id = 'registrar';
 
   formulario.append(email, password, password2, buttonRegister);
-  main.append(imageLogo, formulario);
+  contenedor.append(imageLogo, formulario);
 
   function validatePassword() {
     const passwordValidate = document.getElementById('password').value;
@@ -50,7 +60,7 @@ export const Register = (onNavigate) => {
     return true;
   }
 
-  buttonRegister.addEventListener('click', (e) => {
+  formulario.addEventListener('submit', (e) => {
     e.preventDefault(); // No recargue la página
     const functionPassword = validatePassword();
     if (functionPassword === true) { // Verdadero si las contraseñas coinciden
@@ -96,5 +106,5 @@ export const Register = (onNavigate) => {
     }
   });
 
-  return main;
+  return contenedor;
 };
