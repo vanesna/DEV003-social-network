@@ -8,49 +8,47 @@ export const Register = (onNavigate) => {
   const imageLogo = document.createElement('img');
   imageLogo.src = 'imagenes/logo.png';
   imageLogo.setAttribute('class', 'imagen');
-  contenedor.id = 'imagenLogo';
+  contenedor.id = 'imagenlogo';
 
   const formulario = document.createElement('form');
   formulario.setAttribute('class', 'signin');
   contenedor.id = 'form';
 
-  const email = document.createElement('input');
-  email.placeholder = 'Correo electrónico';
-  email.type = 'email';
-  email.required = 'true';
-  email.setAttribute('class', 'box');
-  email.autocomplete = 'email';
-  contenedor.id = 'inputEmail';
+  const inputForEmail = document.createElement('input');
+  inputForEmail.placeholder = 'Correo electrónico';
+  inputForEmail.type = 'Email';
+  inputForEmail.required = 'true';
+  inputForEmail.setAttribute('class', 'box');
+  inputForEmail.autocomplete = 'email';
+  inputForEmail.id = 'inputEmail';
 
-  const password = document.createElement('input');
-  password.placeholder = 'Contraseña';
-  password.type = 'password';
-  password.required = 'true';
-  password.setAttribute('class', 'box');
-  password.id = 'password';
-  password.autocomplete = 'new-password';
-  contenedor.id = 'inputPassword';
+  const inPutForPassword = document.createElement('input');
+  inPutForPassword.placeholder = 'Contraseña';
+  inPutForPassword.type = 'password';
+  inPutForPassword.required = 'true';
+  inPutForPassword.setAttribute('class', 'box');
+  inPutForPassword.autocomplete = 'new-password';
+  inPutForPassword.id = 'inputPassword';
 
   const password2 = document.createElement('input');
   password2.placeholder = 'Confirma contraseña';
   password2.type = 'password';
   password2.required = 'true';
   password2.setAttribute('class', 'box');
-  password2.id = 'confirmPassword';
   password2.autocomplete = 'new-password';
-  contenedor.id = 'inputPassword2';
+  password2.id = 'confirmPassword';
 
   const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Registrar';
   buttonRegister.setAttribute('class', 'start');
   buttonRegister.type = 'submit';
-  contenedor.id = 'registrar';
+  buttonRegister.id = 'registrar';
 
-  formulario.append(email, password, password2, buttonRegister);
+  formulario.append(inputForEmail, inPutForPassword, password2, buttonRegister);
   contenedor.append(imageLogo, formulario);
 
   function validatePassword() {
-    const passwordValidate = document.getElementById('password').value;
+    const passwordValidate = document.getElementById('inputPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     if (passwordValidate !== confirmPassword) {
       alert('Las contraseñas no coinciden');
@@ -63,9 +61,12 @@ export const Register = (onNavigate) => {
   formulario.addEventListener('submit', (e) => {
     e.preventDefault(); // No recargue la página
     const functionPassword = validatePassword();
-    if (functionPassword === true) { // Verdadero si las contraseñas coinciden
+    if (functionPassword === true) {
       console.log('functionPassword: ', functionPassword);
-      const authToken = register(email.value, password.value);
+
+      // Nuestra promesa es el register que nos deveulve un objeto, que es el userCredential
+      const authToken = register(inputForEmail.value, inPutForPassword.value);
+
       authToken.then((userCredential) => {
         // Signed in
         const user = userCredential.user;
@@ -75,7 +76,7 @@ export const Register = (onNavigate) => {
       })
         .catch((error) => {
           const errorCode = error.code;
-          let message;
+          let message = ' ';
           if (errorCode === 'auth/weak-password') {
             message = 'La contraseña debe contener al menos 6 carácteres';
           }
@@ -95,8 +96,6 @@ export const Register = (onNavigate) => {
           const errorMessage = error.message;
           console.log('errorMessage: ', errorMessage);
           alert(message);
-
-        // ..
         });
       // auth/weak-password contrasena corta +6
       // auth/missing-email
