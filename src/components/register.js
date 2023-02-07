@@ -38,13 +38,26 @@ export const Register = (onNavigate) => {
   password2.autocomplete = 'new-password';
   password2.id = 'confirmPassword';
 
+  const errorMessage = document.createElement('p');
+  errorMessage.id = 'errorMessage';
+  const succcessMessage = document.createElement('p');
+  succcessMessage.id = 'succcessMessage';
+
   const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Registrar';
   buttonRegister.setAttribute('class', 'start');
   buttonRegister.type = 'submit';
   buttonRegister.id = 'registrar';
 
-  formulario.append(inputForEmail, inPutForPassword, password2, buttonRegister);
+  formulario.append(
+    inputForEmail,
+    inPutForPassword,
+    password2,
+    errorMessage,
+    succcessMessage,
+    buttonRegister,
+  );
+
   contenedor.append(imageLogo, formulario);
 
   function validatePassword() {
@@ -62,16 +75,16 @@ export const Register = (onNavigate) => {
     e.preventDefault(); // No recargue la página
     const functionPassword = validatePassword();
     if (functionPassword === true) {
-      console.log('functionPassword: ', functionPassword);
-
       // Nuestra promesa es el register que nos deveulve un objeto, que es el userCredential
       const authToken = register(inputForEmail.value, inPutForPassword.value);
+      console.log('authToken: ', authToken);
 
       authToken.then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         console.log('user: ', user);
-        alert('Registro exitoso');
+        succcessMessage.innerHTML = 'Registro exitoso';
+
         onNavigate('/login');
       })
         .catch((error) => {
@@ -97,11 +110,6 @@ export const Register = (onNavigate) => {
           console.log('errorMessage: ', errorMessage);
           alert(message);
         });
-      // auth/weak-password contrasena corta +6
-      // auth/missing-email
-      // auth/invalid-email
-      // auth/internal-error no ingrese contrasena
-      // auth/email-already-in-use
     }
   });
 
