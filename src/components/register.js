@@ -63,18 +63,38 @@ export const Register = (onNavigate) => {
   function validatePassword() {
     const passwordValidate = document.getElementById('inputPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
+
     if (passwordValidate !== confirmPassword) {
-      alert('Las contraseñas no coinciden');
+      errorMessage.innerHTML = 'Las contraseñas no coinciden';
       document.getElementById('confirmPassword').value = '';
       return false;
     }
     return true;
   }
 
-  formulario.addEventListener('submit', (e) => {
+  function validateInputs() {
+    const emailToValidate = document.getElementById('inputEmail').value;
+    console.log('emailToValidate: ', emailToValidate);
+    const passwordToValidate = document.getElementById('inputPassword').value;
+    console.log('passwordToValidate: ', passwordToValidate);
+    const confirmPassword2 = document.getElementById('confirmPassword').value;
+    console.log('confirmPassword2: ', confirmPassword2);
+
+    if (emailToValidate === '' || passwordToValidate === '' || confirmPassword2 === '') {
+      errorMessage.innerHTML = 'Llena todos los campos';
+      return false;
+    }
+    return true;
+  }
+
+  buttonRegister.addEventListener('click', (e) => { // CAMBIOS!!
     e.preventDefault(); // No recargue la página
+
+    const functionValidateInputs = validateInputs();
+    console.log('functionValidateInputs: ', functionValidateInputs);
     const functionPassword = validatePassword();
-    if (functionPassword === true) {
+
+    if (functionPassword === true && functionValidateInputs === true) {
       // Nuestra promesa es el register que nos deveulve un objeto, que es el userCredential
       const authToken = register(inputForEmail.value, inPutForPassword.value);
       console.log('authToken: ', authToken);
@@ -84,31 +104,28 @@ export const Register = (onNavigate) => {
         const user = userCredential.user;
         console.log('user: ', user);
         succcessMessage.innerHTML = 'Registro exitoso';
-
         onNavigate('/login');
       })
         .catch((error) => {
           const errorCode = error.code;
-          let message = ' ';
           if (errorCode === 'auth/weak-password') {
-            message = 'La contraseña debe contener al menos 6 carácteres';
+            errorMessage.innerHTML = 'La contraseña debe contener al menos 6 carácteres';
           }
           if (errorCode === 'auth/missing-email') {
-            message = 'Olvidaste ingresar tu correo electrónico';
+            errorMessage.innerHTML = 'Olvidaste ingresar tu correo electrónico';
           }
           if (errorCode === 'auth/invalid-email') {
-            message = 'Ingresa un correo electrónico válido';
+            errorMessage.innerHTML = 'Ingresa un correo electrónico válido';
           }
           if (errorCode === 'auth/internal-error') {
-            message = 'Ingresa una contraseña';
+            errorMessage.innerHTML = 'Ingresa una contraseña';
           }
           if (errorCode === 'auth/email-already-in-use') {
-            message = 'El correo electrónico ingresado ya ha sido registrado';
+            errorMessage.innerHTML = 'El correo electrónico ingresado ya ha sido registrado';
           }
           console.log('errorCode: ', errorCode);
-          const errorMessage = error.message;
-          console.log('errorMessage: ', errorMessage);
-          alert(message);
+          const errorMessageFirebase = error.message;
+          console.log('errorMessageFirebase: ', errorMessageFirebase);
         });
     }
   });
