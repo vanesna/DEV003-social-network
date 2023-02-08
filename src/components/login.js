@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { login } from '../lib/firebase';
 
 export const Login = (onNavigate) => {
@@ -55,7 +56,9 @@ export const Login = (onNavigate) => {
     userLogin.then((userCredential) => {
       // Login
       const user = userCredential.user;
+      // eslint-disable-next-line no-console
       console.log('user: ', user);
+      // eslint-disable-next-line no-alert
       alert('Inicio de sesión exitoso');
     })
       .catch((error) => {
@@ -77,6 +80,7 @@ export const Login = (onNavigate) => {
         console.log('errorCode: ', errorCode);
         const errorMessage = error.message;
         console.log('errorMessage: ', errorMessage);
+        // eslint-disable-next-line no-alert
         alert(message);
       });
   });

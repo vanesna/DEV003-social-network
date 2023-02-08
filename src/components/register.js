@@ -74,11 +74,11 @@ export const Register = (onNavigate) => {
 
   function validateInputs() {
     const emailToValidate = document.getElementById('inputEmail').value;
-    console.log('emailToValidate: ', emailToValidate);
+    // console.log('emailToValidate: ', emailToValidate);
     const passwordToValidate = document.getElementById('inputPassword').value;
-    console.log('passwordToValidate: ', passwordToValidate);
+    // console.log('passwordToValidate: ', passwordToValidate);
     const confirmPassword2 = document.getElementById('confirmPassword').value;
-    console.log('confirmPassword2: ', confirmPassword2);
+    // console.log('confirmPassword2: ', confirmPassword2);
 
     if (emailToValidate === '' || passwordToValidate === '' || confirmPassword2 === '') {
       errorMessage.innerHTML = 'Llena todos los campos';
@@ -91,17 +91,18 @@ export const Register = (onNavigate) => {
     e.preventDefault(); // No recargue la página
 
     const functionValidateInputs = validateInputs();
-    console.log('functionValidateInputs: ', functionValidateInputs);
+    // console.log('functionValidateInputs: ', functionValidateInputs);
     const functionPassword = validatePassword();
 
     if (functionPassword === true && functionValidateInputs === true) {
       // Nuestra promesa es el register que nos deveulve un objeto, que es el userCredential
       const authToken = register(inputForEmail.value, inPutForPassword.value);
-      console.log('authToken: ', authToken);
+      // console.log('authToken: ', authToken);
 
       authToken.then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        // eslint-disable-next-line no-console
         console.log('user: ', user);
         succcessMessage.innerHTML = 'Registro exitoso';
         onNavigate('/login');
@@ -123,9 +124,9 @@ export const Register = (onNavigate) => {
           if (errorCode === 'auth/email-already-in-use') {
             errorMessage.innerHTML = 'El correo electrónico ingresado ya ha sido registrado';
           }
-          console.log('errorCode: ', errorCode);
-          const errorMessageFirebase = error.message;
-          console.log('errorMessageFirebase: ', errorMessageFirebase);
+          // console.log('errorCode: ', errorCode);
+          // const errorMessageFirebase = error.message;
+          // console.log('errorMessageFirebase: ', errorMessageFirebase);
         });
     }
   });
