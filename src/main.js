@@ -1,14 +1,14 @@
 // Manejo del DOM, se crean las funciones
 import { Welcome } from './components/welcome.js';
 import { Login } from './components/login.js';
-import { Register } from './components/register.js';
+import { RegisterComponent } from './components/register.js';
 
 const root = document.getElementById('root');
 // Nuestras rutas
 const routes = {
   '/': Welcome,
   '/login': Login,
-  '/register': Register,
+  '/register': RegisterComponent,
 };
 
 const onNavigate = (pathname) => {// es el "/" de cada ruta, nombre de la ruta

@@ -43,7 +43,7 @@ html {
 }
 
 .bienvenidos {
-  font-family: chewy;
+  font-family: 'chewy', sans-serif;
   color: black;
   font-size: 3.5rem;
   margin: 10px;
@@ -51,7 +51,7 @@ html {
 }
 
 .intro {
-  font-family: glacial;
+  font-family: 'glacial', sans-serif;
   color: black;
   font-size: 2.5rem;
   margin: 10px;
@@ -62,7 +62,7 @@ html {
   height: 40px;
   background: #bed73d;
   border-radius: 13px;
-  font-family: 'Chewy';
+  font-family: 'Chewy', sans-serif;
   font-size: 2rem;
   margin: 3%;
 }
