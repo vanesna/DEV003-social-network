@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 // importamos la funcion que vamos a testear
-import { register } from '../src/lib/firebase';
-import { Register } from '../src/components/register';
+import { register } from '../src/lib/firebase.js';
+import { RegisterComponent } from '../src/components/register.js';
 
 jest.mock('../src/lib/firebase');
 
@@ -23,7 +23,7 @@ describe('first test for Register', () => {
 
   // se llama el DOM virtual
   beforeEach(() => {
-    document.body.appendChild(Register()); // creo un body virtual donde va a ir el resultado de ejecutar la funcion de mi componente Register, que me retorna mi contenedor
+    document.body.appendChild(RegisterComponent()); // creo un body virtual donde va a ir el resultado de ejecutar la funcion de mi componente Register, que me retorna mi contenedor
 
     // contenedor = document.getElementById("viewconteiner");
     // formulario = document.getElementById("form");

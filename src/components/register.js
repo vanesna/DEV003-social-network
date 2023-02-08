@@ -1,6 +1,6 @@
 import { register } from '../lib/firebase.js';
 
-export const Register = (onNavigate) => {
+export const RegisterComponent = (onNavigate) => {
   const contenedor = document.createElement('div');
   contenedor.setAttribute('class', 'contenedor');
   contenedor.id = 'viewconteiner';
