@@ -11,7 +11,7 @@ export const Login = (onNavigate) => {
 
   const formulario = document.createElement('form'); // cambie div por form, cree formulario
   formulario.setAttribute('class', 'login');
-
+  
   const email = document.createElement('input');
   email.placeholder = 'Email';
   email.setAttribute('class', 'box');
@@ -87,6 +87,3 @@ export const Login = (onNavigate) => {
 
   return main;
 };
-
-
-//OK.
