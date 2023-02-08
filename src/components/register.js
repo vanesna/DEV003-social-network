@@ -22,13 +22,13 @@ export const RegisterComponent = (onNavigate) => {
   inputForEmail.autocomplete = 'email';
   inputForEmail.id = 'inputEmail';
 
-  const inPutForPassword = document.createElement('input');
-  inPutForPassword.placeholder = 'Contraseña';
-  inPutForPassword.type = 'password';
-  inPutForPassword.required = 'true';
-  inPutForPassword.setAttribute('class', 'box');
-  inPutForPassword.autocomplete = 'new-password';
-  inPutForPassword.id = 'inputPassword';
+  const inputForPassword = document.createElement('input');
+  inputForPassword.placeholder = 'Contraseña';
+  inputForPassword.type = 'password';
+  inputForPassword.required = 'true';
+  inputForPassword.setAttribute('class', 'box');
+  inputForPassword.autocomplete = 'new-password';
+  inputForPassword.id = 'inputPassword';
 
   const password2 = document.createElement('input');
   password2.placeholder = 'Confirma contraseña';
@@ -40,8 +40,9 @@ export const RegisterComponent = (onNavigate) => {
 
   const errorMessage = document.createElement('p');
   errorMessage.id = 'errorMessage';
-  const succcessMessage = document.createElement('p');
-  succcessMessage.id = 'succcessMessage';
+
+  const successMessage = document.createElement('p');
+  successMessage.id = 'successMessage';
 
   const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Registrar';
@@ -51,10 +52,10 @@ export const RegisterComponent = (onNavigate) => {
 
   formulario.append(
     inputForEmail,
-    inPutForPassword,
+    inputForPassword,
     password2,
     errorMessage,
-    succcessMessage,
+    successMessage,
     buttonRegister,
   );
 
@@ -96,7 +97,7 @@ export const RegisterComponent = (onNavigate) => {
 
     if (functionPassword === true && functionValidateInputs === true) {
       // Nuestra promesa es el register que nos deveulve un objeto, que es el userCredential
-      const authToken = register(inputForEmail.value, inPutForPassword.value);
+      const authToken = register(inputForEmail.value, inputForPassword.value);
       // console.log('authToken: ', authToken);
 
       authToken.then((userCredential) => {
@@ -104,7 +105,8 @@ export const RegisterComponent = (onNavigate) => {
         const user = userCredential.user;
         // eslint-disable-next-line no-console
         console.log('user: ', user);
-        succcessMessage.innerHTML = 'Registro exitoso';
+        // eslint-disable-next-line no-alert
+        alert('Registro exitoso');
         onNavigate('/login');
       })
         .catch((error) => {
