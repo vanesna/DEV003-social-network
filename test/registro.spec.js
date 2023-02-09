@@ -26,8 +26,6 @@ describe('first test for Register', () => {
   beforeEach(() => {
     document.body.appendChild(RegisterComponent()); // creo un body virtual donde va a ir el resultado de ejecutar la funcion de mi componente Register, que me retorna mi contenedor
 
-    // contenedor = document.getElementById('viewconteiner');
-    // formulario = document.getElementById('form');
     inputForEmail = document.getElementById('inputEmail');
     inputForPassword = document.getElementById('inputPassword');
     password2 = document.getElementById('confirmPassword');
@@ -54,36 +52,71 @@ describe('first test for Register', () => {
     // expect(global.alert).toHaveBeenCalledTimes(1);
   });
 
-  it('en caso de vacio se muestra error', async () => {
-    inputForEmail.value = '';
-    inputForPassword.value = '';
-    password2.value = '';
-    buttonRegister.click();
-    // console.log(errorMessage.innerHTML);
-    // await tick();
-    expect(errorMessage.innerHTML).toBe('Llena todos los campos');
-  });
-
   it('en caso de que las contraseñas no coincidan se muestra error', async () => {
     inputForPassword.value = '123456';
     password2.value = 'sk8hjs9';
     buttonRegister.click();
-    // console.log(errorMessage.innerHTML);
-    // await tick();
+
     expect(errorMessage.innerHTML).toBe('Las contraseñas no coinciden');
   });
 
-  it ('en caso de que las contraseñas sean menores a 6 carácteres', async () => {
-    register.mockImplementationOnce(() => Promise.reject({ code: 'auth/weak-password'}));
-    // global.alert = jest.fn();
-    // valores de los inputs
+  it('en caso de que las contraseñas sean menores a 6 carácteres', async () => {
+    register.mockImplementationOnce(() => Promise.reject({ code: 'auth/weak-password' }));
+
     inputForEmail.value = 'mariana@gmail.com';
     inputForPassword.value = '12345';
     password2.value = '12345';
 
-    // eslint-disable-next-line no-undef
     buttonRegister.click();
     await tick();
     expect(errorMessage.innerHTML).toBe('La contraseña debe contener al menos 6 carácteres');
+  });
+
+  it('en caso de que no ingrese ningun correo electrónico', async () => {
+    register.mockImplementationOnce(() => Promise.reject({ code: 'auth/missing-email' }));
+
+    inputForEmail.value = ' ';
+    inputForPassword.value = '1234567';
+    password2.value = '1234567';
+    buttonRegister.click();
+
+    await tick();
+    expect(errorMessage.innerHTML).toBe('Llena todos los campos');
+  });
+
+  it('en caso de que ingrese un correo electronico invalido', async () => {
+    register.mockImplementationOnce(() => Promise.reject({ code: 'auth/invalid-email' }));
+
+    inputForEmail.value = 'emailgmailcom';
+    inputForPassword.value = '1234567';
+    password2.value = '1234567';
+    buttonRegister.click();
+
+    await tick();
+    expect(errorMessage.innerHTML).toBe('Ingresa un correo electrónico válido');
+  });
+
+  it('en caso de que no ingrese una contraseña', async () => {
+    register.mockImplementationOnce(() => Promise.reject({ code: 'auth/internal-error' }));
+
+    inputForEmail.value = 'mariana@gmail.com';
+    inputForPassword.value = ' ';
+    password2.value = ' ';
+    buttonRegister.click();
+
+    await tick();
+    expect(errorMessage.innerHTML).toBe('Ingresa una contraseña');
+  });
+
+  it('en caso de que ingrese un correo electrónico ya registrado', async () => {
+    register.mockImplementationOnce(() => Promise.reject({ code: 'auth/email-already-in-use' }));
+
+    inputForEmail.value = 'mariana@gmail.com';
+    inputForPassword.value = ' ';
+    password2.value = ' ';
+    buttonRegister.click();
+
+    await tick();
+    expect(errorMessage.innerHTML).toBe('El correo electrónico ingresado ya ha sido registrado');
   });
 });
