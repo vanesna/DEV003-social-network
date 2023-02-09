@@ -73,8 +73,8 @@ describe('first test for Register', () => {
     expect(errorMessage.innerHTML).toBe('Las contraseñas no coinciden');
   });
 
-  it('en caso de que las contraseñas sean menores a 6 carácteres', async () => {
-    register.mockImplementationOnce((email, password) => { Promise.reject(new Error('Firebase: Error (auth/weak-password).')); });
+  it ('en caso de que las contraseñas sean menores a 6 carácteres', async () => {
+    register.mockImplementationOnce(() => Promise.reject({ code: 'auth/weak-password'}));
     // global.alert = jest.fn();
     // valores de los inputs
     inputForEmail.value = 'mariana@gmail.com';
