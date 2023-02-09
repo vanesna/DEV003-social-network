@@ -1,5 +1,5 @@
 
-import { provider } from '@firebase/component';
+//  import { provider } from '@firebase/component';
 
 import
 {
@@ -44,22 +44,23 @@ export const Login = (onNavigate) => {
   GoogleButton.setAttribute('class', 'google');
   GoogleButton.id = 'googleLogin';
 
-  const buttonRegister = document.createElement('button');
-  buttonRegister.textContent = 'Registrate';
-  buttonRegister.setAttribute('class', 'start');
-  buttonRegister.type = 'submit';
+  const registerButton = document.createElement('button');
+  registerButton.textContent = 'Registrate';
+  registerButton.setAttribute('class', 'start');
+  registerButton.type = 'submit';
 
-  formulario.append(email, password, loginButton, forgotPassword, GoogleButton, buttonRegister);
+  formulario.append(email, password, loginButton, forgotPassword, GoogleButton, registerButton);
   main.append(imageLogo, formulario);
 
-  buttonRegister.addEventListener('click', () => {
+  registerButton.addEventListener('click', () => {
     onNavigate('/register');
   });
 
-  const botonGoogle = document.querySelector('#googleLogin');
-  botonGoogle.addEventListener('click', (e) => {
+  // const botonGoogle = document.querySelector('#googleLogin');
+  GoogleButton.addEventListener('click', (e) => {
+    console.log('clikc boton google: ', GoogleButton);
     e.preventDefault();
-    //   console.log('click google');
+
     const userGoogle = loginWhitGoogle(provider);
     userGoogle.then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
