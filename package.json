@@ -43,6 +43,9 @@
     "commit": "554537acba119b006aadd63f243aceff8a25c582"
   },
   "dependencies": {
-    "firebase": "^9.16.0"
+    "firebase": "^9.16.0",
+    "i": "^0.3.7",
+    "pnpm": "^7.26.3",
+    "yarn": "^1.22.19"
   }
 }

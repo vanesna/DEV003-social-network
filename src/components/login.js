@@ -11,7 +11,7 @@ export const Login = (onNavigate) => {
 
   const formulario = document.createElement('form'); // cambie div por form, cree formulario
   formulario.setAttribute('class', 'login');
-
+  
   const email = document.createElement('input');
   email.placeholder = 'Email';
   email.setAttribute('class', 'box');
@@ -26,31 +26,41 @@ export const Login = (onNavigate) => {
   password.required = 'true';
   password.autocomplete = 'current-password'; // se agrego autocompeltado
 
-  const buttonLogin = document.createElement('button');
-  buttonLogin.textContent = 'Iniciar Sesión';
-  buttonLogin.setAttribute('class', 'start');
-  buttonLogin.type = 'submit';
+  const loginButton = document.createElement('button');
+  loginButton.textContent = 'Iniciar Sesión';
+  loginButton.setAttribute('class', 'start');
+  loginButton.type = 'submit';
 
   const forgotPassword = document.createElement('p');
   forgotPassword.textContent = 'Olvide mi contraseña';
 
-  const buttonGoogle = document.createElement('button');
-  buttonGoogle.textContent = 'Inicia sesión con Google';
-  buttonGoogle.setAttribute('class', 'google');
+  const GoogleButton = document.createElement('button');
+  GoogleButton.textContent = 'Inicia sesión con Google';
+  GoogleButton.setAttribute('class', 'google');
+  GoogleButton.id = 'googleLogin';
 
-  const buttonRegister = document.createElement('button');
+  const buttonRegister = document.createElement('button')
   buttonRegister.textContent = 'Registrate';
   buttonRegister.setAttribute('class', 'start');
   buttonRegister.type = 'submit';
 
-  formulario.append(email, password, buttonLogin, forgotPassword, buttonGoogle, buttonRegister);
+  formulario.append(email, password, loginButton, forgotPassword, GoogleButton, buttonRegister);
   main.append(imageLogo, formulario);
 
   buttonRegister.addEventListener('click', () => {
     onNavigate('/register');
   });
+  
+  const botonGoogle = document.querySelector('#googleLogin');
+  botonGoogle.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log('click google')
+  });
 
-  buttonLogin.addEventListener('click', (e) => {
+
+
+
+  loginButton.addEventListener('click', (e) => {
     e.preventDefault(); // No recargue la página
     const userLogin = login(email.value, password.value);
     userLogin.then((userCredential) => {
@@ -84,6 +94,8 @@ export const Login = (onNavigate) => {
         alert(message);
       });
   });
+
+
 
   return main;
 };
