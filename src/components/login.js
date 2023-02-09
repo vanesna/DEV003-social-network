@@ -1,5 +1,11 @@
-/* eslint-disable no-console */
-import { login } from '../lib/firebase';
+
+import { provider } from '@firebase/component';
+
+import
+{
+  login,
+  loginWhitGoogle,
+} from '../lib/firebase';
 
 export const Login = (onNavigate) => {
   const main = document.createElement('main');
@@ -9,23 +15,22 @@ export const Login = (onNavigate) => {
   imageLogo.src = 'imagenes/logo.png';
   imageLogo.setAttribute('class', 'imagen');
 
-  const formulario = document.createElement('form'); // cambie div por form, cree formulario
+  const formulario = document.createElement('form');
   formulario.setAttribute('class', 'login');
-  
+
   const email = document.createElement('input');
   email.placeholder = 'Email';
   email.setAttribute('class', 'box');
   email.type = 'text';
   email.required = 'true';
-  email.autocomplete = 'email'; // se agrego autocompletado
+  email.autocomplete = 'email';
 
   const password = document.createElement('input');
   password.placeholder = 'contraseña';
   password.setAttribute('class', 'box');
   password.type = 'password';
   password.required = 'true';
-  password.autocomplete = 'current-password'; // se agrego autocompeltado
-
+  password.autocomplete = 'current-password';
   const loginButton = document.createElement('button');
   loginButton.textContent = 'Iniciar Sesión';
   loginButton.setAttribute('class', 'start');
@@ -39,7 +44,7 @@ export const Login = (onNavigate) => {
   GoogleButton.setAttribute('class', 'google');
   GoogleButton.id = 'googleLogin';
 
-  const buttonRegister = document.createElement('button')
+  const buttonRegister = document.createElement('button');
   buttonRegister.textContent = 'Registrate';
   buttonRegister.setAttribute('class', 'start');
   buttonRegister.type = 'submit';
@@ -50,15 +55,31 @@ export const Login = (onNavigate) => {
   buttonRegister.addEventListener('click', () => {
     onNavigate('/register');
   });
-  
+
   const botonGoogle = document.querySelector('#googleLogin');
   botonGoogle.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log('click google')
+    //   console.log('click google');
+    const userGoogle = loginWhitGoogle(provider);
+    userGoogle.then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+    }).catch((error) => {
+    // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+    });
   });
-
-
-
 
   loginButton.addEventListener('click', (e) => {
     e.preventDefault(); // No recargue la página
@@ -94,8 +115,6 @@ export const Login = (onNavigate) => {
         alert(message);
       });
   });
-
-
 
   return main;
 };
