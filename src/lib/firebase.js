@@ -29,3 +29,4 @@ export const login = (email, password) => signInWithEmailAndPassword(auth, email
 
 // login con boton google
 export const loginWhitGoogle = (provider) => signInWithPopup(auth, provider);
+const provider = new GoogleAuthProvider(); // instancia del objeto de proveedor de Google 

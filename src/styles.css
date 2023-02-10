@@ -74,6 +74,19 @@ html {
   margin: 2px;
 }
 
+.pregunta {
+  font-family: 'Chewy', sans-serif;
+  color:  #02924A;
+  font-size: 1.5rem;
+  margin: 2px;
+}
+.preguntaPassword{
+  font-family: 'Chewy', sans-serif;
+  color:  #02924A;
+  font-size: 1.5rem;
+  margin: 2px;
+  text-decoration: underline;
+}
 /* .google {
   background-color: #4D90FE;
    background-image: -webkit-gradient(linear,left top,left bottom,from(#4D90FE),to(#4787ED));

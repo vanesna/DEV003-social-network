@@ -51,6 +51,13 @@ export const RegisterComponent = (onNavigate) => {
   registerButton.type = 'submit';
   registerButton.id = 'registrar';
 
+  const textoPregunta = document.createElement('p');
+  textoPregunta.textContent = '¿Ya tienes cuenta?';
+  textoPregunta.setAttribute('class', 'pregunta');
+  const botonVolverAlogin = document.createElement('button');
+  botonVolverAlogin.setAttribute('class', 'start');
+  botonVolverAlogin.textContent = 'Inicia Sesión';
+
   formulario.append(
     inputForEmail,
     inputForPassword,
@@ -58,6 +65,9 @@ export const RegisterComponent = (onNavigate) => {
     errorMessage,
     successMessage,
     registerButton,
+    textoPregunta,
+    botonVolverAlogin,
+
   );
 
   contenedor.append(imageLogo, formulario);
@@ -117,6 +127,9 @@ export const RegisterComponent = (onNavigate) => {
           console.log('errorMessageFirebase: ', errorMessageFirebase);
         });
     }
+  });
+  botonVolverAlogin.addEventListener('click', () => {
+    onNavigate('/login');
   });
 
   return contenedor;
