@@ -1,11 +1,11 @@
-
-//  import { provider } from '@firebase/component';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 import
 {
   login,
-  loginWhitGoogle,
+  loginWithGoogle,
 } from '../lib/firebase';
+
 
 export const Login = (onNavigate) => {
   const main = document.createElement('main');
@@ -62,7 +62,7 @@ export const Login = (onNavigate) => {
     console.log('clikc boton google: ', GoogleButton);
     e.preventDefault();
 
-    const userGoogle = loginWhitGoogle(provider);
+    const userGoogle = loginWithGoogle();
     userGoogle.then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -70,15 +70,6 @@ export const Login = (onNavigate) => {
       // The signed-in user info.
       const user = result.user;
     // IdP data available using getAdditionalUserInfo(result)
-    // ...
-    }).catch((error) => {
-    // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
     });
   });

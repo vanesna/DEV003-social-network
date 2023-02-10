@@ -28,5 +28,5 @@ export const register = (email, password) => createUserWithEmailAndPassword(auth
 export const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
 // login con boton google
-export const loginWhitGoogle = (provider) => signInWithPopup(auth, provider);
-const provider = new GoogleAuthProvider(); // instancia del objeto de proveedor de Google 
+const provider = new GoogleAuthProvider(); // instancia del objeto de proveedor de Google
+export const loginWithGoogle = () => signInWithPopup(auth, provider);
