@@ -30,6 +30,11 @@ export const Login = (onNavigate) => {
   password.type = 'password';
   password.required = 'true';
   password.autocomplete = 'current-password';
+
+  const errorMessage = document.createElement('p');
+  errorMessage.setAttribute('class', 'alerta');
+  errorMessage.id = 'errorMessage';
+
   const loginButton = document.createElement('button');
   loginButton.textContent = 'Iniciar Sesión';
   loginButton.setAttribute('class', 'start');
@@ -49,7 +54,15 @@ export const Login = (onNavigate) => {
   registerButton.setAttribute('class', 'start');
   registerButton.type = 'submit';
 
-  formulario.append(email, password, loginButton, forgotPassword, GoogleButton, registerButton);
+  formulario.append(
+    email,
+    password,
+    errorMessage,
+    loginButton,
+    forgotPassword,
+    GoogleButton,
+    registerButton,
+  );
   main.append(imageLogo, formulario);
 
   registerButton.addEventListener('click', () => {
@@ -58,7 +71,6 @@ export const Login = (onNavigate) => {
 
   // const botonGoogle = document.querySelector('#googleLogin');
   GoogleButton.addEventListener('click', (e) => {
-    console.log('clikc boton google: ', GoogleButton);
     e.preventDefault();
 
     const userGoogle = loginWithGoogle();
@@ -66,10 +78,12 @@ export const Login = (onNavigate) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
+      console.log('token: ', token);
       // The signed-in user info.
       const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
+      console.log('user: ', user);
+      // IdP data available using getAdditionalUserInfo(result)
+      onNavigate('/wall');
     });
   });
 
@@ -82,29 +96,27 @@ export const Login = (onNavigate) => {
       // eslint-disable-next-line no-console
       console.log('user: ', user);
       // eslint-disable-next-line no-alert
-      alert('Inicio de sesión exitoso');
+      onNavigate('/wall');
     })
       .catch((error) => {
         const errorCode = error.code;
-        let message;
         if (errorCode === 'auth/wrong-password') {
-          message = 'Contraseña incorrecta';
+          errorMessage.innerHTML = 'Contraseña incorrecta';
         }
         if (errorCode === 'auth/invalid-email') {
-          message = 'Ingresa un correo válido';
+          errorMessage.innerHTML = 'Ingresa un correo electrónico válido';
         }
         if (errorCode === 'auth/internal-error') {
-          message = 'Olvidaste la contraseña';
+          errorMessage.innerHTML = 'Ingresa la contraseña';
         }
 
         if (errorCode === 'auth/user-not-found') {
-          message = 'El correo electrónico ingresado no ha sido registrado';
+          errorMessage.innerHTML = 'El correo electrónico ingresado no ha sido registrado';
         }
         console.log('errorCode: ', errorCode);
-        const errorMessage = error.message;
-        console.log('errorMessage: ', errorMessage);
+        const errorMessage1 = error.message;
+        console.log('errorMessage: ', errorMessage1);
         // eslint-disable-next-line no-alert
-        alert(message);
       });
   });
 
