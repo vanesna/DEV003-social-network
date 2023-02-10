@@ -37,7 +37,8 @@ export const Login = (onNavigate) => {
   loginButton.type = 'submit';
 
   const forgotPassword = document.createElement('p');
-  forgotPassword.textContent = 'Olvide mi contraseña';
+  forgotPassword.textContent = 'Olvidé mi contraseña';
+  forgotPassword.setAttribute('class', 'preguntaPassword');
 
   const GoogleButton = document.createElement('button');
   GoogleButton.textContent = 'Inicia sesión con Google';
