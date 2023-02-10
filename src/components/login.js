@@ -6,7 +6,6 @@ import
   loginWithGoogle,
 } from '../lib/firebase';
 
-
 export const Login = (onNavigate) => {
   const main = document.createElement('main');
   main.setAttribute('class', 'contenedor');
