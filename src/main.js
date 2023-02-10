@@ -2,6 +2,7 @@
 import { Welcome } from './components/welcome.js';
 import { Login } from './components/login.js';
 import { RegisterComponent } from './components/register.js';
+import { Wall } from './components/wall.js';
 
 const root = document.getElementById('root');
 // Nuestras rutas
@@ -9,9 +10,10 @@ const routes = {
   '/': Welcome,
   '/login': Login,
   '/register': RegisterComponent,
+  '/wall': Wall,
 };
 
-const onNavigate = (pathname) => {// es el "/" de cada ruta, nombre de la ruta
+const onNavigate = (pathname) => { // es el "/" de cada ruta, nombre de la ruta
   window.history.pushState( // queda registrado el historial en el navegador
     {},
     pathname,
