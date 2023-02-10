@@ -4,7 +4,7 @@
 import
 {
   login,
-  loginWhitGoogle,
+  loginWithGoogle,
 } from '../lib/firebase';
 
 export const Login = (onNavigate) => {
@@ -62,7 +62,7 @@ export const Login = (onNavigate) => {
     console.log('clikc boton google: ', GoogleButton);
     e.preventDefault();
 
-    const userGoogle = loginWhitGoogle(provider);
+    const userGoogle = loginWithGoogle();
     userGoogle.then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
