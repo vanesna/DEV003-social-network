@@ -45,7 +45,7 @@ export const Login = (onNavigate) => {
   forgotPassword.setAttribute('class', 'preguntaPassword');
 
   const GoogleButton = document.createElement('button');
-  GoogleButton.textContent = 'Inicia sesión con Google';
+  GoogleButton.innerHTML = '<i class="fa-brands fa-google"></i>  Inicia sesión con Google';
   GoogleButton.setAttribute('class', 'google');
   GoogleButton.id = 'googleLogin';
 
