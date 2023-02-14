@@ -1,16 +1,24 @@
+import { sharePost, getPosts, onGetPosts } from '../lib/firebase.js';
+
 export const Wall = (onNavigate) => {
   // creación de elementos
 
- // const elementoswall = document.getElementById('elementoswall');
- const elementoswall = document.createElement('div');
- 
-
+  // const elementoswall = document.getElementById('elementoswall');
+  const elementoswall = document.createElement('div');
   const containerHeader = document.createElement('section');
   const iconMenu = document.createElement('img');
   const nombreSocialNetwork = document.createElement('p');
   const search = document.createElement('input');
   const iconNotificaciones = document.createElement('img');
   const menuDisplayed = document.createElement('div');
+
+  const containerSharePost = document.createElement('div');
+  const writePost = document.createElement('input');
+  writePost.id = 'writePost';
+  const buttonSharePost = document.createElement('button');
+  buttonSharePost.textContent = 'Publicar';
+
+  const containerPosts = document.createElement('section');
 
   // añadiendo clase
   elementoswall.className = 'containerwall';
@@ -27,12 +35,9 @@ export const Wall = (onNavigate) => {
   menuDisplayed.id = 'menu-desplegable-id';
 
   // añadiendo hijos
-  elementoswall.appendChild(containerHeader);
-  elementoswall.appendChild(menuDisplayed);
-  containerHeader.appendChild(iconMenu);
-  containerHeader.appendChild(nombreSocialNetwork);
-  containerHeader.appendChild(search);
-  containerHeader.appendChild(iconNotificaciones);
+  containerSharePost.append(writePost, buttonSharePost);
+  elementoswall.append(containerHeader, menuDisplayed, containerSharePost, containerPosts);
+  containerHeader.append(iconMenu, nombreSocialNetwork, search, iconNotificaciones);
 
   // Menú hambuguesa
   iconMenu.addEventListener('click', () => {
@@ -50,7 +55,31 @@ export const Wall = (onNavigate) => {
       menuDisplayed.style.display = 'none';
     });
   });
+  // Publicar cada uno de los post que hay en la base de datos
+  onGetPosts((callback) => {
+    let html = '';
+    callback.forEach((doc) => {
+      const post = doc.data();
+      html += `
+      <div>
+          <p>${post.post}</p>      
+      </div>
+      `;
+      //   const sectionAll = document.createElement('section');
+      //   const textPosts = document.createElement('p');
+      //   textPosts.textContent = ;
+
+    //   sectionAll.append(textPosts);
+    });
+    containerPosts.innerHTML = html;
+  });
+
+  buttonSharePost.addEventListener('click', (e) => {
+    e.preventDefault();
+    const post = document.getElementById('writePost');
+    sharePost(post.value);
+    document.getElementById('writePost').value = '';
+  });
 
   return elementoswall;
-  
 };
