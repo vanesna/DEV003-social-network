@@ -7,6 +7,10 @@ import {
   getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
   signInWithPopup, GoogleAuthProvider,
 } from 'firebase/auth';
+import {
+  getFirestore, collection, addDoc, getDoc, onSnapshot, doc,
+} from 'firebase/firestore';
+
 // Enlazamos visual con firebase
 
 const firebaseConfig = {
@@ -30,3 +34,20 @@ export const login = (email, password) => signInWithEmailAndPassword(auth, email
 // login con boton google
 const provider = new GoogleAuthProvider(); // instancia del objeto de proveedor de Google
 export const loginWithGoogle = () => signInWithPopup(auth, provider);
+
+const db = getFirestore(app); // conexion a la base de datos
+
+export const sharePost = (text) => {
+  // Add a new document with a generated id.
+  addDoc(collection(db, 'posts'), {
+    post: text,
+  });
+};
+
+export const getPosts = () => {
+  getDoc(doc(db, 'posts'));
+};
+
+export const onGetPosts = (callback) => {
+  onSnapshot(collection(db, 'posts'), callback);
+};

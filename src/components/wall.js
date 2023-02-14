@@ -1,9 +1,11 @@
+import { sharePost, onGetPosts, getPosts } from '../lib/firebase.js';
+
 export const Wall = (onNavigate) => {
   // :::.. creación de elementos..::://
 
   // const elementoswall = document.getElementById('elementoswall');
- const elementoswall = document.createElement('div');
- 
+  const elementoswall = document.createElement('div');
+
   // menu
   const containerHeader = document.createElement('section');
   const iconMenu = document.createElement('img');
@@ -42,6 +44,7 @@ export const Wall = (onNavigate) => {
   postUsuario.className = 'postUsuario';
   publicarButton.className = 'publicarButton';
   publicarButton.textContent = 'Publicar';
+  postUsuario.id = 'postUsuario';
 
   containerTodasLasPublicaciones.className = 'containerTodasPublicaciones';
 
@@ -75,6 +78,33 @@ export const Wall = (onNavigate) => {
     closeButton.addEventListener('click', () => {
       menuDisplayed.style.display = 'none';
     });
+  });
+
+  // Publicar cada uno de los post que hay en la base de datos
+  onGetPosts((callback) => {
+    let html = '';
+    callback.forEach((doc) => {
+      const post = doc.data();
+      html += `
+      <div>
+          <p>${post.post}</p>      
+      </div>
+      `;
+      //   const sectionAll = document.createElement('section');
+      //   const textPosts = document.createElement('p');
+      //   textPosts.textContent = ;
+
+    //   sectionAll.append(textPosts);
+    });
+    containerTodasLasPublicaciones.innerHTML = html;
+  });
+
+  // Guarda post en la base de datos
+  publicarButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const post = document.getElementById('postUsuario');
+    sharePost(post.value);
+    document.getElementById('postUsuario').value = '';
   });
 
   return elementoswall;
