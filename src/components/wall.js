@@ -1,10 +1,12 @@
-import { sharePost, getPosts, onGetPosts } from '../lib/firebase.js';
+import { sharePost, onGetPosts, getPosts } from '../lib/firebase.js';
 
 export const Wall = (onNavigate) => {
-  // creación de elementos
+  // :::.. creación de elementos..::://
 
   // const elementoswall = document.getElementById('elementoswall');
   const elementoswall = document.createElement('div');
+
+  // menu
   const containerHeader = document.createElement('section');
   const iconMenu = document.createElement('img');
   const nombreSocialNetwork = document.createElement('p');
@@ -12,15 +14,16 @@ export const Wall = (onNavigate) => {
   const iconNotificaciones = document.createElement('img');
   const menuDisplayed = document.createElement('div');
 
-  const containerSharePost = document.createElement('div');
-  const writePost = document.createElement('input');
-  writePost.id = 'writePost';
-  const buttonSharePost = document.createElement('button');
-  buttonSharePost.textContent = 'Publicar';
+  // publicaciones del usuario
+  const containerPublicaciones = document.createElement('section');
+  const fotoPerfil = document.createElement('img');
+  const postUsuario = document.createElement('input');
+  const publicarButton = document.createElement('button');
 
-  const containerPosts = document.createElement('section');
+  // publicaciones de toda la comunidad plants lovers
+  const containerTodasLasPublicaciones = document.createElement('section');
 
-  // añadiendo clase
+  // ::.. añadiendo clase..:://
   elementoswall.className = 'containerwall';
   containerHeader.className = 'containerHeader';
   iconMenu.className = 'icon-menu';
@@ -34,10 +37,31 @@ export const Wall = (onNavigate) => {
   menuDisplayed.className = 'menu-desplegable';
   menuDisplayed.id = 'menu-desplegable-id';
 
+  containerPublicaciones.className = 'containerPublicaciones';
+  fotoPerfil.src = '\\imagenes\\fotoperfil.jfif';
+  fotoPerfil.className = 'fotoPerfil';
+  postUsuario.placeholder = 'Comparte con la comunidad PlantsLovers';
+  postUsuario.className = 'postUsuario';
+  publicarButton.className = 'publicarButton';
+  publicarButton.textContent = 'Publicar';
+  postUsuario.id = 'postUsuario';
+
+  containerTodasLasPublicaciones.className = 'containerTodasPublicaciones';
+
   // añadiendo hijos
-  containerSharePost.append(writePost, buttonSharePost);
-  elementoswall.append(containerHeader, menuDisplayed, containerSharePost, containerPosts);
-  containerHeader.append(iconMenu, nombreSocialNetwork, search, iconNotificaciones);
+  elementoswall.appendChild(containerHeader);
+  elementoswall.appendChild(menuDisplayed);
+  containerHeader.appendChild(iconMenu);
+  containerHeader.appendChild(nombreSocialNetwork);
+  containerHeader.appendChild(search);
+  containerHeader.appendChild(iconNotificaciones);
+
+  elementoswall.appendChild(containerPublicaciones);
+  containerPublicaciones.appendChild(fotoPerfil);
+  containerPublicaciones.appendChild(postUsuario);
+  containerPublicaciones.appendChild(publicarButton);
+
+  elementoswall.appendChild(containerTodasLasPublicaciones);
 
   // Menú hambuguesa
   iconMenu.addEventListener('click', () => {
@@ -55,6 +79,7 @@ export const Wall = (onNavigate) => {
       menuDisplayed.style.display = 'none';
     });
   });
+
   // Publicar cada uno de los post que hay en la base de datos
   onGetPosts((callback) => {
     let html = '';
@@ -71,14 +96,15 @@ export const Wall = (onNavigate) => {
 
     //   sectionAll.append(textPosts);
     });
-    containerPosts.innerHTML = html;
+    containerTodasLasPublicaciones.innerHTML = html;
   });
 
-  buttonSharePost.addEventListener('click', (e) => {
+  // Guarda post en la base de datos
+  publicarButton.addEventListener('click', (e) => {
     e.preventDefault();
-    const post = document.getElementById('writePost');
+    const post = document.getElementById('postUsuario');
     sharePost(post.value);
-    document.getElementById('writePost').value = '';
+    document.getElementById('postUsuario').value = '';
   });
 
   return elementoswall;
