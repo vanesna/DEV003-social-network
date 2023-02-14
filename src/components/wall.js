@@ -77,5 +77,5 @@ export const Wall = (onNavigate) => {
     });
   });
 
-  return elementoswall;  
+  return elementoswall;
 };
