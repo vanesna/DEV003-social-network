@@ -1,10 +1,10 @@
 export const Wall = (onNavigate) => {
-  // creación de elementos
+  // :::.. creación de elementos..::://
 
- // const elementoswall = document.getElementById('elementoswall');
+  // const elementoswall = document.getElementById('elementoswall');
  const elementoswall = document.createElement('div');
  
-
+  // menu
   const containerHeader = document.createElement('section');
   const iconMenu = document.createElement('img');
   const nombreSocialNetwork = document.createElement('p');
@@ -12,7 +12,16 @@ export const Wall = (onNavigate) => {
   const iconNotificaciones = document.createElement('img');
   const menuDisplayed = document.createElement('div');
 
-  // añadiendo clase
+  // publicaciones del usuario
+  const containerPublicaciones = document.createElement('section');
+  const fotoPerfil = document.createElement('img');
+  const postUsuario = document.createElement('input');
+  const publicarButton = document.createElement('button');
+
+  // publicaciones de toda la comunidad plants lovers
+  const containerTodasLasPublicaciones = document.createElement('section');
+
+  // ::.. añadiendo clase..:://
   elementoswall.className = 'containerwall';
   containerHeader.className = 'containerHeader';
   iconMenu.className = 'icon-menu';
@@ -26,6 +35,16 @@ export const Wall = (onNavigate) => {
   menuDisplayed.className = 'menu-desplegable';
   menuDisplayed.id = 'menu-desplegable-id';
 
+  containerPublicaciones.className = 'containerPublicaciones';
+  fotoPerfil.src = '\\imagenes\\fotoperfil.jfif';
+  fotoPerfil.className = 'fotoPerfil';
+  postUsuario.placeholder = 'Comparte con la comunidad PlantsLovers';
+  postUsuario.className = 'postUsuario';
+  publicarButton.className = 'publicarButton';
+  publicarButton.textContent = 'Publicar';
+
+  containerTodasLasPublicaciones.className = 'containerTodasPublicaciones';
+
   // añadiendo hijos
   elementoswall.appendChild(containerHeader);
   elementoswall.appendChild(menuDisplayed);
@@ -33,6 +52,13 @@ export const Wall = (onNavigate) => {
   containerHeader.appendChild(nombreSocialNetwork);
   containerHeader.appendChild(search);
   containerHeader.appendChild(iconNotificaciones);
+
+  elementoswall.appendChild(containerPublicaciones);
+  containerPublicaciones.appendChild(fotoPerfil);
+  containerPublicaciones.appendChild(postUsuario);
+  containerPublicaciones.appendChild(publicarButton);
+
+  elementoswall.appendChild(containerTodasLasPublicaciones);
 
   // Menú hambuguesa
   iconMenu.addEventListener('click', () => {
@@ -51,6 +77,5 @@ export const Wall = (onNavigate) => {
     });
   });
 
-  return elementoswall;
-  
+  return elementoswall;  
 };
