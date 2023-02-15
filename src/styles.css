@@ -307,9 +307,7 @@ html {
 /*publicaciones de todos los usuarios*/
 
 .containerTodasPublicaciones{
-  height: 350px;
   flex-wrap: wrap;
-  Display: flex;
   padding: 10px;
   margin-top: 5px;
   margin-right: 20%;
@@ -319,8 +317,56 @@ html {
   justify-content: center;  
   box-shadow: .5rem .5rem 1rem #434444,
   -.1rem -.1rem 1rem #fff ;
-
+  
 }
+
+.containerCadaPost {
+  flex-direction: column;
+  font-family: 'glacial', sans-serif;
+  color: black;
+  font-size: 2rem;
+  margin: 10px;
+  text-align: justify;
+  padding: 10px;
+  padding-left: 10px;
+  margin-left: 30px;
+  width: 90%;
+  margin-top: 10px;
+  background-image: url(https://i.postimg.cc/6qLtGZTK/welcome-to1k.png);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 5px 5px 10px rgba(103, 102, 98, 0.989);
+  cursor: default;
+  transition: all 400ms ease;
+  position: relative;
+}
+.class-like {
+  display: flex;
+  height:40% ;
+  background-color: #bed73d;
+  width: 20%;
+  border-radius: 5px;
+  font-family: 'chewy', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  margin-left: 70%;
+  margin-top:  50px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.class-like:hover {
+  transform: scale(0.96);
+  background: #AEDFE4;
+}
+
+
+
 footer{
   
   justify-content: center;
