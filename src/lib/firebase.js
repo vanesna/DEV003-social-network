@@ -8,7 +8,7 @@ import {
   signInWithPopup, GoogleAuthProvider,
 } from 'firebase/auth';
 import {
-  getFirestore, collection, addDoc, getDoc, onSnapshot, doc,
+  getFirestore, collection, addDoc, getDoc, onSnapshot, doc, orderBy,
 } from 'firebase/firestore';
 
 // Enlazamos visual con firebase
