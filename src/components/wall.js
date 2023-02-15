@@ -22,7 +22,7 @@ export const Wall = (onNavigate) => {
 
   // publicaciones de toda la comunidad plants lovers
   const containerTodasLasPublicaciones = document.createElement('section');
-
+ 
   // ::.. añadiendo clase..:://
   elementoswall.className = 'containerwall';
   containerHeader.className = 'containerHeader';
@@ -62,7 +62,7 @@ export const Wall = (onNavigate) => {
   containerPublicaciones.appendChild(publicarButton);
 
   elementoswall.appendChild(containerTodasLasPublicaciones);
-
+  
   // Menú hambuguesa
   iconMenu.addEventListener('click', () => {
     menuDisplayed.style.display = 'flex';
@@ -82,21 +82,23 @@ export const Wall = (onNavigate) => {
 
   // Publicar cada uno de los post que hay en la base de datos
   onGetPosts((callback) => {
-    let html = '';
     callback.forEach((doc) => {
       const post = doc.data();
-      html += `
-      <div>
-          <p>${post.post}</p>      
-      </div>
-      `;
+      const containerCadaPost = document.createElement('div');
+      containerCadaPost.className = 'containerCadaPost';
+      containerCadaPost.innerHTML += `
+    
+                  <p>${post.post}</p>
+                  <div class='class-like ><h1 class='textoLike'>${'\u{1F49A} Me gusta'}</h1></div>`;
+                  
+
       //   const sectionAll = document.createElement('section');
       //   const textPosts = document.createElement('p');
       //   textPosts.textContent = ;
 
-    //   sectionAll.append(textPosts);
+      //   sectionAll.append(textPosts);
+      containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
-    containerTodasLasPublicaciones.innerHTML = html;
   });
 
   // Guarda post en la base de datos
