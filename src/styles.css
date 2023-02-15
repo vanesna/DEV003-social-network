@@ -341,11 +341,12 @@ html {
   width: 90%;
   margin-bottom:10px ;
 }
-.class-like {
+.class-like, .btn-delete {
   display: flex;
   height: 30px;
   width: 30px;
-  background: #bed73d;
+  background: rgba(255, 255, 255, 0.458);
+  border: none;
   border-radius: 30px;
   font-family: 'Chewy', sans-serif;
   font-size: 2rem;  
@@ -362,7 +363,7 @@ html {
   -.1rem -.1rem 1rem #fff ;
   }
 
-.class-like:hover {
+.class-like, .btn-delete:hover {
   transform: scale(0.96);
   background: #AEDFE4;
   box-shadow: .5rem .5rem 1rem #02924A,
