@@ -90,19 +90,25 @@ export const Wall = (onNavigate) => {
     
                   <p>${post.post}</p>
                   <div class= 'contenedorIconos'> 
-                  <button class='class-like' >${'\u{1F49A}'}</button>
-                  <button class='btn-delete' id= '${doc.id}'>${'🗑️'}</button>
-                  <button class='class-like' >${'🖍️'}</button>
+                  <div class='class-like' >${'\u{1F49A}'}</div>
+                  <button class='btn-delete' data-id= '${doc.id}'>${'\u{1F5D1}'}</button>
+                  <div class='class-like' >${'\u{270F}'}</div>
                   </div>`;
 
-                  const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
-                  console.log('btnsDelete: ', btnsDelete);
-            
-                  btnsDelete.forEach((btn) => {
-                    btn.addEventListener('click', (event) => {
-                      console.log(event)
-                    });
-                  });
+      //   const sectionAll = document.createElement('section');
+      //   const textPosts = document.createElement('p');
+      //   textPosts.textContent = ;
+
+      //   sectionAll.append(textPosts);
+      const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
+      console.log('btnsDelete: ', btnsDelete);
+
+      btnsDelete.forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+          console.log(event.target.id);
+        });
+      });
+
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
   });
