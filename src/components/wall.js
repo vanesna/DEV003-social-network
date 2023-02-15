@@ -90,16 +90,19 @@ export const Wall = (onNavigate) => {
     
                   <p>${post.post}</p>
                   <div class= 'contenedorIconos'> 
-                  <div class='class-like' >${'\u{1F49A}'}</div>
-                  <div class='class-like'>${'\u{1F5D1}'}</div>
-                  <div class='class-like' >${'\u{270F}'}</div>
+                  <button class='class-like' >${'\u{1F49A}'}</button>
+                  <button class='btn-delete' id= '${doc.id}'>${'🗑️'}</button>
+                  <button class='class-like' >${'🖍️'}</button>
                   </div>`;
 
-      //   const sectionAll = document.createElement('section');
-      //   const textPosts = document.createElement('p');
-      //   textPosts.textContent = ;
-
-      //   sectionAll.append(textPosts);
+                  const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
+                  console.log('btnsDelete: ', btnsDelete);
+            
+                  btnsDelete.forEach((btn) => {
+                    btn.addEventListener('click', (event) => {
+                      console.log(event)
+                    });
+                  });
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
   });
