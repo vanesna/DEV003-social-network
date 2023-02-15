@@ -123,3 +123,4 @@ export const Wall = (onNavigate) => {
 
   return elementoswall;
 };
+//ok
