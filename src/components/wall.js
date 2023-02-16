@@ -1,4 +1,6 @@
-import { sharePost, onGetPosts, getPosts, deletePost } from '../lib/firebase.js';
+import {
+  sharePost, onGetPosts, getPosts, deletePost,
+} from '../lib/firebase.js';
 
 export const Wall = (onNavigate) => {
   // :::.. creación de elementos..::://
@@ -17,7 +19,7 @@ export const Wall = (onNavigate) => {
   // publicaciones del usuario
   const containerPublicaciones = document.createElement('section');
   const fotoPerfil = document.createElement('img');
-  const postUsuario = document.createElement('input');
+  const postUsuario = document.createElement('textarea');
   const publicarButton = document.createElement('button');
 
   // publicaciones de toda la comunidad plants lovers
@@ -49,19 +51,16 @@ export const Wall = (onNavigate) => {
   containerTodasLasPublicaciones.className = 'containerTodasPublicaciones';
 
   // añadiendo hijos
-  elementoswall.appendChild(containerHeader);
-  elementoswall.appendChild(menuDisplayed);
-  containerHeader.appendChild(iconMenu);
-  containerHeader.appendChild(nombreSocialNetwork);
-  containerHeader.appendChild(search);
-  containerHeader.appendChild(iconNotificaciones);
+  elementoswall.append(
+    containerHeader,
+    menuDisplayed,
+    containerPublicaciones,
+    containerTodasLasPublicaciones,
+  );
 
-  elementoswall.appendChild(containerPublicaciones);
-  containerPublicaciones.appendChild(fotoPerfil);
-  containerPublicaciones.appendChild(postUsuario);
-  containerPublicaciones.appendChild(publicarButton);
+  containerHeader.append(iconMenu, nombreSocialNetwork, search, iconNotificaciones);
 
-  elementoswall.appendChild(containerTodasLasPublicaciones);
+  containerPublicaciones.append(fotoPerfil, postUsuario, publicarButton);
 
   // Menú hambuguesa
   iconMenu.addEventListener('click', () => {
@@ -80,26 +79,32 @@ export const Wall = (onNavigate) => {
     });
   });
 
+  const containerCadaPost = document.createElement('div');
+  containerCadaPost.className = 'containerCadaPost';
+
   // Publicar cada uno de los post que hay en la base de datos
-  onGetPosts((callback) => {
-    callback.forEach((doc) => {
+  // querySnapshot es para traer los datos que existe en este momento
+  onGetPosts((querySnapshot) => {
+    let html = '';
+    querySnapshot.forEach((doc) => {
+      console.log('doc: ', doc.data());
       const post = doc.data();
-      const containerCadaPost = document.createElement('div');
-      containerCadaPost.className = 'containerCadaPost';
-      containerCadaPost.innerHTML += `
-    
+      console.log('post: ', post);
+
+      html += `
+                  
                   <p>${post.post}</p>
                   <div class= 'contenedorIconos'> 
                   <button class='class-like' >${'\u{1F49A}'}</button>
                   <button class='btn-delete' id= '${doc.id}'>${'🗑️'}</button>
                   <button class='class-like' >${'🖍️'}</button>
                   </div>`;
-
-      containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
+    containerCadaPost.innerHTML = html;
+    containerTodasLasPublicaciones.append(containerCadaPost);
 
     const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
-    // console.log('btnsDelete: ', btnsDelete);
+
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', ({ target }) => {
         deletePost(target.id);
