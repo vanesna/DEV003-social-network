@@ -79,29 +79,28 @@ export const Wall = (onNavigate) => {
     });
   });
 
-  const containerCadaPost = document.createElement('div');
-  containerCadaPost.className = 'containerCadaPost';
-
   // Publicar cada uno de los post que hay en la base de datos
   // querySnapshot es para traer los datos que existe en este momento
-  onGetPosts((querySnapshot) => {
-    let html = '';
-    querySnapshot.forEach((doc) => {
-      console.log('doc: ', doc.data());
-      const post = doc.data();
-      console.log('post: ', post);
+  onGetPosts((callback) => {
+    while (containerTodasLasPublicaciones.firstChild) {
+      containerTodasLasPublicaciones.removeChild(containerTodasLasPublicaciones.firstChild);
+    }
 
-      html += `
-                  
+    callback.forEach((doc) => {
+      console.log({ doc });
+      const post = doc.data();
+      const containerCadaPost = document.createElement('div');
+      containerCadaPost.className = 'containerCadaPost';
+      containerCadaPost.innerHTML += `
                   <p>${post.post}</p>
                   <div class= 'contenedorIconos'> 
                   <button class='class-like' >${'\u{1F49A}'}</button>
                   <button class='btn-delete' id= '${doc.id}'>${'🗑️'}</button>
                   <button class='class-like' >${'🖍️'}</button>
                   </div>`;
+
+      containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
-    containerCadaPost.innerHTML = html;
-    containerTodasLasPublicaciones.append(containerCadaPost);
 
     const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
 
