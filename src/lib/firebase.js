@@ -8,7 +8,7 @@ import {
   signInWithPopup, GoogleAuthProvider,
 } from 'firebase/auth';
 import {
-  getFirestore, collection, addDoc, getDoc, onSnapshot, doc, orderBy,
+  getFirestore, collection, addDoc, getDoc, onSnapshot, deleteDoc, doc,
 } from 'firebase/firestore';
 
 // Enlazamos visual con firebase
@@ -51,3 +51,5 @@ export const getPosts = () => {
 export const onGetPosts = (callback) => {
   onSnapshot(collection(db, 'posts'), callback);
 };
+
+export const deletePost = (id) => deleteDoc(doc(db, 'posts', id)); // doc es para buscar un documento, de la coleccion posts y me elimina el id

@@ -1,4 +1,4 @@
-import { sharePost, onGetPosts, getPosts } from '../lib/firebase.js';
+import { sharePost, onGetPosts, getPosts, deletePost } from '../lib/firebase.js';
 
 export const Wall = (onNavigate) => {
   // :::.. creación de elementos..::://
@@ -89,14 +89,21 @@ export const Wall = (onNavigate) => {
       containerCadaPost.innerHTML += `
     
                   <p>${post.post}</p>
-                  <div class='class-like ><h1 class='textoLike'>${'\u{1F49A} Me gusta'}</h1></div>`;
+                  <div class= 'contenedorIconos'> 
+                  <button class='class-like' >${'\u{1F49A}'}</button>
+                  <button class='btn-delete' id= '${doc.id}'>${'🗑️'}</button>
+                  <button class='class-like' >${'🖍️'}</button>
+                  </div>`;
 
-      //   const sectionAll = document.createElement('section');
-      //   const textPosts = document.createElement('p');
-      //   textPosts.textContent = ;
-
-      //   sectionAll.append(textPosts);
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
+    });
+
+    const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
+    // console.log('btnsDelete: ', btnsDelete);
+    btnsDelete.forEach((btn) => {
+      btn.addEventListener('click', ({ target }) => {
+        deletePost(target.id);
+      });
     });
   });
 
@@ -110,3 +117,4 @@ export const Wall = (onNavigate) => {
 
   return elementoswall;
 };
+// ok
