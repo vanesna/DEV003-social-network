@@ -8,7 +8,7 @@ import {
   signInWithPopup, GoogleAuthProvider,
 } from 'firebase/auth';
 import {
-  getFirestore, collection, addDoc, getDoc, onSnapshot, deleteDoc, doc,
+  getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc,
 } from 'firebase/firestore';
 
 // Enlazamos visual con firebase
@@ -38,18 +38,19 @@ export const loginWithGoogle = () => signInWithPopup(auth, provider);
 const db = getFirestore(app); // conexion a la base de datos
 
 export const sharePost = (text) => {
-  // Add a new document with a generated id.
+  // la funcion addDoc agrega documento a la colleccion de Firebase que llamamos posts
   addDoc(collection(db, 'posts'), {
     post: text,
   });
 };
-
+  // la funcion getDocs es para obtener documentos
 export const getPosts = () => {
-  getDoc(doc(db, 'posts'));
+  getDocs(doc(db, 'posts'));
 };
 
 export const onGetPosts = (callback) => {
   onSnapshot(collection(db, 'posts'), callback);
 };
 
-export const deletePost = (id) => deleteDoc(doc(db, 'posts', id)); // doc es para buscar un documento, de la coleccion posts y me elimina el id
+// doc busca 1 documento, de la coleccion posts y me elimina el id usando la funcion deleteDoc
+export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
