@@ -1,4 +1,4 @@
-import { sharePost, onGetPosts, getPosts } from '../lib/firebase.js';
+import { sharePost, onGetPosts, getPosts, deletePost } from '../lib/firebase.js';
 
 export const Wall = (onNavigate) => {
   // :::.. creación de elementos..::://
@@ -95,16 +95,15 @@ export const Wall = (onNavigate) => {
                   <button class='class-like' >${'🖍️'}</button>
                   </div>`;
 
-                  const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
-                  console.log('btnsDelete: ', btnsDelete);
-            
-                  btnsDelete.forEach((btn) => {
-                    btn.addEventListener('click', (event) => {
-                      console.log(event)
-                    });
-                  });
-
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
+    });
+
+    const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
+    // console.log('btnsDelete: ', btnsDelete);
+    btnsDelete.forEach((btn) => {
+      btn.addEventListener('click', ({ target }) => {
+        deletePost(target.id);
+      });
     });
   });
 
@@ -118,4 +117,4 @@ export const Wall = (onNavigate) => {
 
   return elementoswall;
 };
-//ok
+// ok
