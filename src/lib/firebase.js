@@ -8,7 +8,8 @@ import {
   signInWithPopup, GoogleAuthProvider,
 } from 'firebase/auth';
 import {
-  getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc,
+  getFirestore, collection, addDoc, getDocs, onSnapshot,
+  deleteDoc, doc, query, orderBy, serverTimestamp, getDoc, updateDoc,
 } from 'firebase/firestore';
 
 // Enlazamos visual con firebase
@@ -36,21 +37,33 @@ const provider = new GoogleAuthProvider(); // instancia del objeto de proveedor 
 export const loginWithGoogle = () => signInWithPopup(auth, provider);
 
 const db = getFirestore(app); // conexion a la base de datos
+const colRef = collection(db, 'posts');
 
 export const sharePost = (text) => {
   // la funcion addDoc agrega documento a la colleccion de Firebase que llamamos posts
-  addDoc(collection(db, 'posts'), {
+  addDoc(colRef, {
     post: text,
+    createdAt: serverTimestamp(),
   });
 };
-  // la funcion getDocs es para obtener documentos
+// Busca dentro de la colección post y los ordena por fecha de publicación de forma descendente
+const q = query(colRef, orderBy('createdAt', 'desc'));
+
+// la funcion getDocs es para obtener documentos
 export const getPosts = () => {
   getDocs(doc(db, 'posts'));
 };
 
+// Función para mostrar todos los posts
 export const onGetPosts = (callback) => {
-  onSnapshot(collection(db, 'posts'), callback);
+  onSnapshot(q, callback);
 };
 
 // doc busca 1 documento, de la coleccion posts y me elimina el id usando la funcion deleteDoc
 export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
+
+// Trae la información de un post
+export const getPost = (id) => getDoc(doc(db, 'posts', id));
+
+// Función para actualizar la informacion del post
+export const updatePost = (id, newInfo) => updateDoc(doc(db, 'posts', id), newInfo);
