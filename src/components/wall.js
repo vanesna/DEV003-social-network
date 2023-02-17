@@ -1,4 +1,6 @@
-import { sharePost, onGetPosts, getPosts, deletePost } from '../lib/firebase.js';
+import {
+  sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost,
+} from '../lib/firebase.js';
 
 export const Wall = (onNavigate) => {
   // :::.. creación de elementos..::://
@@ -17,7 +19,7 @@ export const Wall = (onNavigate) => {
   // publicaciones del usuario
   const containerPublicaciones = document.createElement('section');
   const fotoPerfil = document.createElement('img');
-  const postUsuario = document.createElement('input');
+  const postUsuario = document.createElement('textarea');
   const publicarButton = document.createElement('button');
 
   // publicaciones de toda la comunidad plants lovers
@@ -46,22 +48,23 @@ export const Wall = (onNavigate) => {
   publicarButton.textContent = 'Publicar';
   postUsuario.id = 'postUsuario';
 
+  // Para editar
+  let editStatus = false;
+  let id = '';
+
   containerTodasLasPublicaciones.className = 'containerTodasPublicaciones';
 
   // añadiendo hijos
-  elementoswall.appendChild(containerHeader);
-  elementoswall.appendChild(menuDisplayed);
-  containerHeader.appendChild(iconMenu);
-  containerHeader.appendChild(nombreSocialNetwork);
-  containerHeader.appendChild(search);
-  containerHeader.appendChild(iconNotificaciones);
+  elementoswall.append(
+    containerHeader,
+    menuDisplayed,
+    containerPublicaciones,
+    containerTodasLasPublicaciones,
+  );
 
-  elementoswall.appendChild(containerPublicaciones);
-  containerPublicaciones.appendChild(fotoPerfil);
-  containerPublicaciones.appendChild(postUsuario);
-  containerPublicaciones.appendChild(publicarButton);
+  containerHeader.append(iconMenu, nombreSocialNetwork, search, iconNotificaciones);
 
-  elementoswall.appendChild(containerTodasLasPublicaciones);
+  containerPublicaciones.append(fotoPerfil, postUsuario, publicarButton);
 
   // Menú hambuguesa
   iconMenu.addEventListener('click', () => {
@@ -81,28 +84,48 @@ export const Wall = (onNavigate) => {
   });
 
   // Publicar cada uno de los post que hay en la base de datos
+  // querySnapshot es para traer los datos que existe en este momento
   onGetPosts((callback) => {
+    while (containerTodasLasPublicaciones.firstChild) {
+      containerTodasLasPublicaciones.removeChild(containerTodasLasPublicaciones.firstChild);
+    }
+
     callback.forEach((doc) => {
+      console.log({ doc });
       const post = doc.data();
       const containerCadaPost = document.createElement('div');
       containerCadaPost.className = 'containerCadaPost';
       containerCadaPost.innerHTML += `
-    
                   <p>${post.post}</p>
                   <div class= 'contenedorIconos'> 
                   <button class='class-like' >${'\u{1F49A}'}</button>
                   <button class='btn-delete' id= '${doc.id}'>${'🗑️'}</button>
-                  <button class='class-like' >${'🖍️'}</button>
+                  <button class='class-edit' id= '${doc.id}'>${'🖍️'}</button>
                   </div>`;
 
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
 
     const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
-    // console.log('btnsDelete: ', btnsDelete);
+
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', ({ target }) => {
         deletePost(target.id);
+      });
+    });
+
+    const btnEdit = containerTodasLasPublicaciones.querySelectorAll('.class-edit');
+
+    btnEdit.forEach((btn) => {
+      btn.addEventListener('click', async ({ target }) => {
+        const doc = await getPost(target.id);
+        const post = doc.data();
+
+        document.getElementById('postUsuario').value = post.post;
+
+        editStatus = true;
+        id = target.id;
+        publicarButton.textContent = 'Actualizar';
       });
     });
   });
@@ -111,10 +134,19 @@ export const Wall = (onNavigate) => {
   publicarButton.addEventListener('click', (e) => {
     e.preventDefault();
     const post = document.getElementById('postUsuario');
-    sharePost(post.value);
+    console.log('post: ', post);
+
+    if (editStatus === false) {
+      sharePost(post.value);
+      console.log('editando');
+    } else {
+      updatePost(id, { post: post.value });
+      publicarButton.textContent = 'Publicar';
+      editStatus = false;
+    }
+
     document.getElementById('postUsuario').value = '';
   });
 
   return elementoswall;
 };
-// ok
