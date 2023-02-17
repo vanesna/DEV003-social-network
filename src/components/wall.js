@@ -1,5 +1,5 @@
 import {
-  sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost,
+  sharePost, onGetPosts, getPosts, deletePost,
 } from '../lib/firebase.js';
 
 export const Wall = (onNavigate) => {
@@ -47,10 +47,6 @@ export const Wall = (onNavigate) => {
   publicarButton.className = 'publicarButton';
   publicarButton.textContent = 'Publicar';
   postUsuario.id = 'postUsuario';
-
-  // Para editar
-  let editStatus = false;
-  let id = '';
 
   containerTodasLasPublicaciones.className = 'containerTodasPublicaciones';
 
@@ -100,7 +96,7 @@ export const Wall = (onNavigate) => {
                   <div class= 'contenedorIconos'> 
                   <button class='class-like' >${'\u{1F49A}'}</button>
                   <button class='btn-delete' id= '${doc.id}'>${'🗑️'}</button>
-                  <button class='class-edit' id= '${doc.id}'>${'🖍️'}</button>
+                  <button class='class-like' >${'🖍️'}</button>
                   </div>`;
 
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
@@ -113,38 +109,13 @@ export const Wall = (onNavigate) => {
         deletePost(target.id);
       });
     });
-
-    const btnEdit = containerTodasLasPublicaciones.querySelectorAll('.class-edit');
-
-    btnEdit.forEach((btn) => {
-      btn.addEventListener('click', async ({ target }) => {
-        const doc = await getPost(target.id);
-        const post = doc.data();
-
-        document.getElementById('postUsuario').value = post.post;
-
-        editStatus = true;
-        id = target.id;
-        publicarButton.textContent = 'Actualizar';
-      });
-    });
   });
 
   // Guarda post en la base de datos
   publicarButton.addEventListener('click', (e) => {
     e.preventDefault();
     const post = document.getElementById('postUsuario');
-    console.log('post: ', post);
-
-    if (editStatus === false) {
-      sharePost(post.value);
-      console.log('editando');
-    } else {
-      updatePost(id, { post: post.value });
-      publicarButton.textContent = 'Publicar';
-      editStatus = false;
-    }
-
+    sharePost(post.value);
     document.getElementById('postUsuario').value = '';
   });
 
