@@ -1,7 +1,7 @@
 import {
   sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost,
 } from '../lib/firebase.js';
-import { ModalEliminar } from './modal.js';
+import { ModalEliminar, modalEditar } from './modal.js';
 
 export const Wall = (onNavigate) => {
   // :::.. creación de elementos..::://
@@ -21,6 +21,7 @@ export const Wall = (onNavigate) => {
   const containerPublicaciones = document.createElement('section');
   const fotoPerfil = document.createElement('img');
   const postUsuario = document.createElement('textarea');
+  const messageError = document.createElement('p');
   const publicarButton = document.createElement('button');
 
   // publicaciones de toda la comunidad plants lovers
@@ -45,12 +46,12 @@ export const Wall = (onNavigate) => {
   fotoPerfil.className = 'fotoPerfil';
   postUsuario.placeholder = 'Comparte con la comunidad PlantsLovers';
   postUsuario.className = 'postUsuario';
+  messageError.className = 'alerta';
   publicarButton.className = 'publicarButton';
   publicarButton.textContent = 'Publicar';
   postUsuario.id = 'postUsuario';
 
   // Para editar
-  let editStatus = false;
   let id = '';
 
   containerTodasLasPublicaciones.className = 'containerTodasPublicaciones';
@@ -65,7 +66,7 @@ export const Wall = (onNavigate) => {
 
   containerHeader.append(iconMenu, nombreSocialNetwork, search, iconNotificaciones);
 
-  containerPublicaciones.append(fotoPerfil, postUsuario, publicarButton);
+  containerPublicaciones.append(fotoPerfil, postUsuario, messageError, publicarButton);
 
   // Menú hambuguesa
   iconMenu.addEventListener('click', () => {
@@ -120,7 +121,6 @@ export const Wall = (onNavigate) => {
 
         const confirmDeleteBtn = modal.querySelector('#btn-confirm-delete');
 
-
         confirmDeleteBtn.addEventListener('click', () => {
           deletePost(target.id);
 
@@ -142,14 +142,32 @@ export const Wall = (onNavigate) => {
 
     btnEdit.forEach((btn) => {
       btn.addEventListener('click', async ({ target }) => {
+        const modal = modalEditar();
+
+        // Abre el modal
+        modal.style.display = 'flex';
+
         const doc = await getPost(target.id);
         const post = doc.data();
 
-        document.getElementById('postUsuario').value = post.post;
+        modal.querySelector('#newPost').value = post.post;
 
-        editStatus = true;
-        id = target.id;
-        publicarButton.textContent = 'Actualizar';
+        const confirmEditBtn = modal.querySelector('#btn-confirm-edit');
+
+        // Para actulizar el post
+        confirmEditBtn.addEventListener('click', () => {
+          const postNuevo = modal.querySelector('#newPost');
+          id = target.id;
+          updatePost(id, { post: postNuevo.value });
+        });
+
+        // Se agrega listener para cancelar
+        const cancelEditBtn = modal.querySelector('#btn-cancel-edit');
+        cancelEditBtn.addEventListener('click', () => {
+          modal.style.display = 'none';
+        });
+
+        containerTodasLasPublicaciones.append(modal);
       });
     });
   });
@@ -157,19 +175,16 @@ export const Wall = (onNavigate) => {
   // Guarda post en la base de datos
   publicarButton.addEventListener('click', (e) => {
     e.preventDefault();
+
     const post = document.getElementById('postUsuario');
     console.log('post: ', post);
 
-    if (editStatus === false) {
-      sharePost(post.value);
-      console.log('editando');
+    if (post.value === '') {
+      messageError.innerHTML = 'Escribe algo';
     } else {
-      updatePost(id, { post: post.value });
-      publicarButton.textContent = 'Publicar';
-      editStatus = false;
+      sharePost(post.value);
+      document.getElementById('postUsuario').value = '';
     }
-
-    document.getElementById('postUsuario').value = '';
   });
 
   return elementoswall;
