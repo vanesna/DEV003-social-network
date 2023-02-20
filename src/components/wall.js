@@ -113,25 +113,26 @@ export const Wall = (onNavigate) => {
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', ({ target }) => {
         const modal = ModalEliminar();
+        console.log('modal: ', modal.querySelector('#btn-confirm-delete'));
 
         // Abre el modal
         modal.style.display = 'flex';
 
-        const confirmDeleteBtn = document.getElementById('btn-confirm-delete');
-        console.log('confirmDeleteBtn: ', confirmDeleteBtn);
+        const confirmDeleteBtn = modal.querySelector('#btn-confirm-delete');
 
-        modal.addEventListener('click', () => {
+
+        confirmDeleteBtn.addEventListener('click', () => {
           deletePost(target.id);
 
           // Cierra el modal
-          // modal.style.display = 'none';
+          modal.style.display = 'none';
         });
 
         // Se agrega listener para cancelar
-        // const cancelBtn = modal.querySelector('btn-cancel-delete');
-        // cancelBtn.addEventListener('click', () => {
-        //   modal.style.display = 'none';
-        // });
+        const cancelBtn = modal.querySelector('#btn-cancel-delete');
+        cancelBtn.addEventListener('click', () => {
+          modal.style.display = 'none';
+        });
         containerTodasLasPublicaciones.append(modal);
       });
     });
