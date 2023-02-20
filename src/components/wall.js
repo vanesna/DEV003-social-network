@@ -21,6 +21,7 @@ export const Wall = (onNavigate) => {
   const fotoPerfil = document.createElement('img');
   const postUsuario = document.createElement('textarea');
   const publicarButton = document.createElement('button');
+  const errorPostVacio = document.createElement('p');
 
   // publicaciones de toda la comunidad plants lovers
   const containerTodasLasPublicaciones = document.createElement('section');
@@ -47,6 +48,8 @@ export const Wall = (onNavigate) => {
   publicarButton.className = 'publicarButton';
   publicarButton.textContent = 'Publicar';
   postUsuario.id = 'postUsuario';
+  errorPostVacio.className = 'alerta';
+  errorPostVacio.id = 'errorPostVacio';
 
   // Para editar
   let editStatus = false;
@@ -64,7 +67,7 @@ export const Wall = (onNavigate) => {
 
   containerHeader.append(iconMenu, nombreSocialNetwork, search, iconNotificaciones);
 
-  containerPublicaciones.append(fotoPerfil, postUsuario, publicarButton);
+  containerPublicaciones.append(fotoPerfil, postUsuario, errorPostVacio, publicarButton);
 
   // Menú hambuguesa
   iconMenu.addEventListener('click', () => {
@@ -136,16 +139,21 @@ export const Wall = (onNavigate) => {
     const post = document.getElementById('postUsuario');
     console.log('post: ', post);
 
-    if (editStatus === false) {
-      sharePost(post.value);
-      console.log('editando');
+    if (post.value === '') {
+      errorPostVacio.innerHTML = 'Escribe algo';
     } else {
-      updatePost(id, { post: post.value });
-      publicarButton.textContent = 'Publicar';
-      editStatus = false;
-    }
+      if (editStatus === false) {
+        errorPostVacio.innerHTML = '';
+        sharePost(post.value);
+        console.log('editando');
+      } else {
+        updatePost(id, { post: post.value });
+        publicarButton.textContent = 'Publicar';
+        editStatus = false;
+      }
 
-    document.getElementById('postUsuario').value = '';
+      document.getElementById('postUsuario').value = '';
+    }
   });
 
   return elementoswall;
