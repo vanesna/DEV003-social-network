@@ -1,6 +1,7 @@
 import {
   sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost,
 } from '../lib/firebase.js';
+import { ModalEliminar } from './modal.js';
 
 export const Wall = (onNavigate) => {
   // :::.. creación de elementos..::://
@@ -106,14 +107,36 @@ export const Wall = (onNavigate) => {
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
 
+    // boton eliminar post
     const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
 
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', ({ target }) => {
-        deletePost(target.id);
+        const modal = ModalEliminar();
+
+        // Abre el modal
+        modal.style.display = 'flex';
+
+        const confirmDeleteBtn = document.getElementById('btn-confirm-delete');
+        console.log('confirmDeleteBtn: ', confirmDeleteBtn);
+
+        modal.addEventListener('click', () => {
+          deletePost(target.id);
+
+          // Cierra el modal
+          // modal.style.display = 'none';
+        });
+
+        // Se agrega listener para cancelar
+        // const cancelBtn = modal.querySelector('btn-cancel-delete');
+        // cancelBtn.addEventListener('click', () => {
+        //   modal.style.display = 'none';
+        // });
+        containerTodasLasPublicaciones.append(modal);
       });
     });
 
+    // boton editar post
     const btnEdit = containerTodasLasPublicaciones.querySelectorAll('.class-edit');
 
     btnEdit.forEach((btn) => {
