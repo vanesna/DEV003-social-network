@@ -44,7 +44,10 @@ export const Wall = (onNavigate) => {
   menuDisplayed.id = 'menu-desplegable-id';
 
   containerPublicaciones.className = 'containerPublicaciones';
-  fotoPerfil.src = '\\imagenes\\fotoperfil.jfif';
+  const usuario = JSON.parse(localStorage.getItem('user'));
+  console.log(usuario);
+  fotoPerfil.src = usuario.photoURL;
+
   fotoPerfil.className = 'fotoPerfil';
   postUsuario.placeholder = 'Comparte con la comunidad PlantsLovers';
   postUsuario.className = 'postUsuario';
@@ -201,7 +204,7 @@ export const Wall = (onNavigate) => {
     if (post.value === '') {
       messageError.innerHTML = 'Escribe algo';
     } else {
-      sharePost(post.value);
+      sharePost(usuario, post.value);
       document.getElementById('postUsuario').value = '';
     }
   });
