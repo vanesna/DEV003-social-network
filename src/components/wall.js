@@ -83,7 +83,16 @@ export const Wall = (onNavigate) => {
     closeButton.addEventListener('click', () => {
       menuDisplayed.style.display = 'none';
     });
+    const miPerfil = document.getElementById('option1');
+    miPerfil.addEventListener('click', () => onNavigate('/profile'));
+
+    const grupos = document.getElementById('option2');
+    grupos.addEventListener('click', () => onNavigate('/grupos'));
+
+    // const cerrarSesion = document.getElementById('option3');
+    // cerrarSesion.addEventListener('click',  onNavigate('/login'));
   });
+
 
   // Publicar cada uno de los post que hay en la base de datos
   // querySnapshot es para traer los datos que existe en este momento

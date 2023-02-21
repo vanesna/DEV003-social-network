@@ -9,8 +9,11 @@ import {
 } from 'firebase/auth';
 import {
   getFirestore, collection, addDoc, getDocs, onSnapshot,
-  deleteDoc, doc, query, orderBy, serverTimestamp, getDoc, updateDoc,
+  deleteDoc, doc, query, orderBy, serverTimestamp, getDoc, updateDoc, setDoc,
 } from 'firebase/firestore';
+import {
+  getDownloadURL, getStorage, ref, uploadBytesResumable,
+} from 'firebase/storage';
 
 // Enlazamos visual con firebase
 
@@ -67,3 +70,35 @@ export const getPost = (id) => getDoc(doc(db, 'posts', id));
 
 // Función para actualizar la informacion del post
 export const updatePost = (id, newInfo) => updateDoc(doc(db, 'posts', id), newInfo);
+
+export const crearDocumentoUsuario = (usuario, nombre, foto) => setDoc(doc(db, 'users', usuario.uid), {
+  id: usuario.uid,
+  nombre,
+  email: usuario.email,
+  photoURL: foto,
+});
+
+// Editar foto
+export const storage = getStorage(app);
+
+export const saveFiles = (file, filename) => {
+  const storageref = ref(storage, `/files/${filename}`);
+  const upload = uploadBytesResumable(storageref, file);
+  upload.on('state_changed', () => { }, () => { }, () => {
+    getDownloadURL(upload.snapshot.ref).then((downloadURL) => {
+      updateProfile(auth.currentUser, { photoURL: downloadURL });
+      console.log('File available at', downloadURL);
+    });
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  });
+};
