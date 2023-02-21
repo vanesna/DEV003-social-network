@@ -5,7 +5,7 @@
 import { initializeApp } from 'firebase/app';
 import {
   getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
-  signInWithPopup, GoogleAuthProvider,
+  signInWithPopup, GoogleAuthProvider, updateProfile,
 } from 'firebase/auth';
 import {
   getFirestore, collection, addDoc, getDocs, onSnapshot,
@@ -32,6 +32,7 @@ export const app = initializeApp(firebaseConfig);
 
 // Crear nueva cuenta pasando la dirección de correo electrónico y la contraseña del nuevo usuario
 const auth = getAuth(app); // constante para poder autenticar usuarios
+// export const user = auth.currentUser;
 export const register = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
@@ -42,9 +43,10 @@ export const loginWithGoogle = () => signInWithPopup(auth, provider);
 const db = getFirestore(app); // conexion a la base de datos
 const colRef = collection(db, 'posts');
 
-export const sharePost = (text) => {
+export const sharePost = (usuario, text) => {
   // la funcion addDoc agrega documento a la colleccion de Firebase que llamamos posts
   addDoc(colRef, {
+    idu: usuario.uid,
     post: text,
     createdAt: serverTimestamp(),
   });
@@ -68,6 +70,8 @@ export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
 // Trae la información de un post
 export const getPost = (id) => getDoc(doc(db, 'posts', id));
 
+export const getUserInfo = (userID) => getDoc(doc(db, 'users', userID));
+
 // Función para actualizar la informacion del post
 export const updatePost = (id, newInfo) => updateDoc(doc(db, 'posts', id), newInfo);
 
@@ -78,27 +82,21 @@ export const crearDocumentoUsuario = (usuario, nombre, foto) => setDoc(doc(db, '
   photoURL: foto,
 });
 
+// let currentUser;
+
 // Editar foto
 export const storage = getStorage(app);
 
-export const saveFiles = (file, filename) => {
+export const saveFiles = (file, filename) => new Promise((resolve) => {
   const storageref = ref(storage, `/files/${filename}`);
   const upload = uploadBytesResumable(storageref, file);
   upload.on('state_changed', () => { }, () => { }, () => {
     getDownloadURL(upload.snapshot.ref).then((downloadURL) => {
+      // aqui tienen que hacer update dopc de la base de usuarios
       updateProfile(auth.currentUser, { photoURL: downloadURL });
       console.log('File available at', downloadURL);
-    });
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        // ...
-      } else {
-        // User is signed out
-        // ...
-      }
+      resolve(downloadURL);
+      console.log(auth.currentUser);
     });
   });
-};
+});

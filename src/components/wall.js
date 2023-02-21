@@ -1,9 +1,11 @@
 import {
-  sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost,
+  sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost, getUserInfo,
 } from '../lib/firebase.js';
 import { ModalEliminar, modalEditar } from './modal.js';
 
 export const Wall = (onNavigate) => {
+  // ejecutar
+
   // :::.. creación de elementos..::://
 
   // const elementoswall = document.getElementById('elementoswall');
@@ -54,6 +56,9 @@ export const Wall = (onNavigate) => {
   // Para editar
   let id = '';
 
+  // Para el usuario actual
+  // let currentUser;
+
   containerTodasLasPublicaciones.className = 'containerTodasPublicaciones';
 
   // añadiendo hijos
@@ -93,7 +98,6 @@ export const Wall = (onNavigate) => {
     // cerrarSesion.addEventListener('click',  onNavigate('/login'));
   });
 
-
   // Publicar cada uno de los post que hay en la base de datos
   // querySnapshot es para traer los datos que existe en este momento
   onGetPosts((callback) => {
@@ -107,6 +111,7 @@ export const Wall = (onNavigate) => {
       const containerCadaPost = document.createElement('div');
       containerCadaPost.className = 'containerCadaPost';
       containerCadaPost.innerHTML += `
+                 
                   <p>${post.post}</p>
                   <div class= 'contenedorIconos'> 
                   <button class='class-like' >${'\u{1F49A}'}</button>
@@ -180,6 +185,11 @@ export const Wall = (onNavigate) => {
       });
     });
   });
+
+  // resolver promesa de función obtener datos del usuario
+  // getUserInfo(userID).then((respuesta) => {
+  //   fotoPerfil.src = respuesta.photoURL;
+  // });
 
   // Guarda post en la base de datos
   publicarButton.addEventListener('click', (e) => {

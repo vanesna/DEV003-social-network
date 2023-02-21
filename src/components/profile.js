@@ -15,13 +15,14 @@ export const Profile = (onNavigate) => {
 
   inputPerfil.addEventListener('change', () => {
     inputPerfil.files[0], inputPerfil.files[0];
-    alert('Guardado correctamente');
     // const url = await readURL(inputPerfil.files[0]);
     // fotoPerfil.src = url;
     inputPerfil.classList.add('obj');
     inputPerfil.file = inputPerfil.files[0];
     console.log(inputPerfil.files);
-    saveFiles(inputPerfil.file, inputPerfil.file.name);
+   
+
+    saveFiles(inputPerfil.file, inputPerfil.file.name).then((r) =>  alert('Guardado correctamente'));
   });
 
   contenedor.append(fotoPerfil, inputPerfil);
