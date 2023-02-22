@@ -82,7 +82,7 @@ export const Login = (onNavigate) => {
       // The signed-in user info.
       const user = result.user;
       console.log('user: ', user);
-      localStorage.setItem('user',JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
 
       crearDocumentoUsuario(user, user.displayName, user.photoURL);
 

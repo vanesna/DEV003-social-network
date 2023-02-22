@@ -13,8 +13,8 @@ const routes = {
   '/login': Login,
   '/register': RegisterComponent,
   '/wall': Wall,
-  '/profile':Profile,
-  '/grupos':Grupos,
+  '/profile': Profile,
+  '/grupos': Grupos,
 };
 
 const onNavigate = (pathname) => { // es el "/" de cada ruta, nombre de la ruta

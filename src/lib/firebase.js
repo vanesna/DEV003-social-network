@@ -5,7 +5,7 @@
 import { initializeApp } from 'firebase/app';
 import {
   getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
-  signInWithPopup, GoogleAuthProvider, updateProfile,
+  signInWithPopup, GoogleAuthProvider, updateProfile, signOut,
 } from 'firebase/auth';
 import {
   getFirestore, collection, addDoc, getDocs, onSnapshot,
@@ -31,14 +31,23 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 // Crear nueva cuenta pasando la dirección de correo electrónico y la contraseña del nuevo usuario
-const auth = getAuth(app); // constante para poder autenticar usuarios
-// export const user = auth.currentUser;
+export const auth = getAuth(app); // constante para poder autenticar usuarios
+
 export const register = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
 // login con boton google
 const provider = new GoogleAuthProvider(); // instancia del objeto de proveedor de Google
 export const loginWithGoogle = () => signInWithPopup(auth, provider);
+
+// export function currentUserInfo() {
+//   const user = auth.currentUser;
+//   if (user !== null) {
+//     // bjjkjjj
+//     return user;
+//   }
+//   console.log('No se ha iniciado sesion');
+// }
 
 const db = getFirestore(app); // conexion a la base de datos
 const colRef = collection(db, 'posts');
@@ -47,7 +56,9 @@ export const sharePost = (usuario, text) => {
   // la funcion addDoc agrega documento a la colleccion de Firebase que llamamos posts
   addDoc(colRef, {
     idu: usuario.uid,
+    nombre: auth.currentUser.displayName ? auth.currentUser.displayName : auth.currentUser.email,
     post: text,
+    likes: 0,
     createdAt: serverTimestamp(),
   });
 };
@@ -100,3 +111,7 @@ export const saveFiles = (file, filename) => new Promise((resolve) => {
     });
   });
 });
+
+// cerrar sesion
+
+export const logOut = () => signOut(auth);

@@ -198,6 +198,7 @@ html {
 .option {
   font-size: 2rem;
   font-family: 'glacial', sans-serif;
+  cursor: pointer;
 }
 .close-button {
   width: 50px;
@@ -206,6 +207,7 @@ html {
   margin-left: 100px;
   box-shadow: .5rem .5rem 1rem #434444,
   -.1rem -.1rem 1rem #fff ;
+  cursor: pointer;
 }
 
 .LikePlants {
@@ -213,7 +215,7 @@ html {
   color: black;
   font-size: 3.5rem;
   margin-top: 15px;
-    
+  cursor: pointer;
 }
 .search{
   margin: 20px;
@@ -368,6 +370,13 @@ html {
   -.5rem -.5rem 1rem #fff ;
 }
 
+.class-post {
+  color: gray;
+}
+
+.class-name {
+  color: #049142 ;
+}
 
 
 footer{

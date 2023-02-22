@@ -1,5 +1,5 @@
 import {
-  sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost, getUserInfo,
+  sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost, getUserInfo, auth, logOut,
 } from '../lib/firebase.js';
 import { ModalEliminar, modalEditar } from './modal.js';
 
@@ -44,6 +44,7 @@ export const Wall = (onNavigate) => {
   menuDisplayed.id = 'menu-desplegable-id';
 
   containerPublicaciones.className = 'containerPublicaciones';
+
   const usuario = JSON.parse(localStorage.getItem('user'));
   console.log(usuario);
   fotoPerfil.src = usuario.photoURL;
@@ -97,8 +98,17 @@ export const Wall = (onNavigate) => {
     const grupos = document.getElementById('option2');
     grupos.addEventListener('click', () => onNavigate('/grupos'));
 
-    // const cerrarSesion = document.getElementById('option3');
-    // cerrarSesion.addEventListener('click',  onNavigate('/login'));
+    const cerrarSesion = document.getElementById('option3');
+    cerrarSesion.addEventListener('click', () => {
+      logOut().then(() => {
+        // Sign-out successful.
+        alert('Cierre de sesión exitoso');
+        onNavigate('/login');
+      })
+        .catch(() => {
+          alert('Algo paso');
+        });
+    });
   });
 
   // Publicar cada uno de los post que hay en la base de datos
@@ -111,11 +121,13 @@ export const Wall = (onNavigate) => {
     callback.forEach((doc) => {
       console.log({ doc });
       const post = doc.data();
+      console.log(doc.id);
       const containerCadaPost = document.createElement('div');
       containerCadaPost.className = 'containerCadaPost';
       containerCadaPost.innerHTML += `
                  
-                  <p>${post.post}</p>
+                  <p class= 'class-name'>${post.nombre}</p><br>
+                  <p class= 'class-post'>${post.post}</p> 
                   <div class= 'contenedorIconos'> 
                   <button class='class-like' >${'\u{1F49A}'}</button>
                   <button class='btn-delete' id= '${doc.id}'>${'🗑️'}</button>
@@ -125,6 +137,10 @@ export const Wall = (onNavigate) => {
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
 
+    console.log(auth.currentUser.uid);
+    // console.log(doc.idu);
+
+    // if(auth.currentUser.uid === ){}
     // boton eliminar post
     const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
 
