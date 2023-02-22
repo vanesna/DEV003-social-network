@@ -79,7 +79,7 @@ export const Login = (onNavigate) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       console.log('token: ', token);
-      // The signed-in user info.
+
       const user = result.user;
       console.log('user: ', user);
       localStorage.setItem('user', JSON.stringify(user));

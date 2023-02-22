@@ -40,15 +40,6 @@ export const login = (email, password) => signInWithEmailAndPassword(auth, email
 const provider = new GoogleAuthProvider(); // instancia del objeto de proveedor de Google
 export const loginWithGoogle = () => signInWithPopup(auth, provider);
 
-// export function currentUserInfo() {
-//   const user = auth.currentUser;
-//   if (user !== null) {
-//     // bjjkjjj
-//     return user;
-//   }
-//   console.log('No se ha iniciado sesion');
-// }
-
 const db = getFirestore(app); // conexion a la base de datos
 const colRef = collection(db, 'posts');
 
@@ -63,7 +54,7 @@ export const sharePost = (usuario, text) => {
   });
 };
 // Busca dentro de la colección post y los ordena por fecha de publicación de forma descendente
-const q = query(colRef, orderBy('createdAt', 'desc'));
+const queryInstruction = query(colRef, orderBy('createdAt', 'desc'));
 
 // la funcion getDocs es para obtener documentos
 export const getPosts = () => {
@@ -72,7 +63,7 @@ export const getPosts = () => {
 
 // Función para mostrar todos los posts
 export const onGetPosts = (callback) => {
-  onSnapshot(q, callback);
+  onSnapshot(queryInstruction, callback);
 };
 
 // doc busca 1 documento, de la coleccion posts y me elimina el id usando la funcion deleteDoc

@@ -1,5 +1,5 @@
 import {
-  sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost, getUserInfo, auth, logOut,
+  sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost, getUserInfo, logOut,
 } from '../lib/firebase.js';
 import { ModalEliminar, modalEditar } from './modal.js';
 
@@ -102,8 +102,9 @@ export const Wall = (onNavigate) => {
     cerrarSesion.addEventListener('click', () => {
       logOut().then(() => {
         // Sign-out successful.
+        localStorage.removeItem('user');
         alert('Cierre de sesión exitoso');
-        onNavigate('/login');
+        onNavigate('/');
       })
         .catch(() => {
           alert('Algo paso');
@@ -113,12 +114,12 @@ export const Wall = (onNavigate) => {
 
   // Publicar cada uno de los post que hay en la base de datos
   // querySnapshot es para traer los datos que existe en este momento
-  onGetPosts((callback) => {
+  onGetPosts((resultado) => {
     while (containerTodasLasPublicaciones.firstChild) {
       containerTodasLasPublicaciones.removeChild(containerTodasLasPublicaciones.firstChild);
     }
 
-    callback.forEach((doc) => {
+    resultado.forEach((doc) => {
       console.log({ doc });
       const post = doc.data();
       console.log(doc.id);
@@ -136,9 +137,6 @@ export const Wall = (onNavigate) => {
 
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
-
-    console.log(auth.currentUser.uid);
-    // console.log(doc.idu);
 
     // if(auth.currentUser.uid === ){}
     // boton eliminar post
@@ -221,6 +219,7 @@ export const Wall = (onNavigate) => {
       messageError.innerHTML = 'Escribe algo';
     } else {
       sharePost(usuario, post.value);
+      console.log('usuario: ', usuario);
       document.getElementById('postUsuario').value = '';
     }
   });
