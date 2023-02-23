@@ -100,6 +100,7 @@ export const Login = (onNavigate) => {
       // eslint-disable-next-line no-console
       console.log('user: ', user);
       // eslint-disable-next-line no-alert
+      localStorage.setItem('user2', JSON.stringify(user));
       onNavigate('/wall');
     })
       .catch((error) => {

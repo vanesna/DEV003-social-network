@@ -94,4 +94,3 @@ export const Profile = (onNavigate) => {
 
   return elementoswall;
 };
-//ok

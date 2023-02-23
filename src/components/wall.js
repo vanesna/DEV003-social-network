@@ -1,5 +1,5 @@
 import {
-  sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost, getUserInfo, logOut,
+  sharePost, onGetPosts, deletePost, getPost, updatePost, logOut,
 } from '../lib/firebase.js';
 import { ModalEliminar, modalEditar } from './modal.js';
 
@@ -25,7 +25,6 @@ export const Wall = (onNavigate) => {
   const postUsuario = document.createElement('textarea');
   const messageError = document.createElement('p');
   const publicarButton = document.createElement('button');
-  const errorPostVacio = document.createElement('p');
 
   // publicaciones de toda la comunidad plants lovers
   const containerTodasLasPublicaciones = document.createElement('section');
@@ -47,8 +46,10 @@ export const Wall = (onNavigate) => {
   containerPublicaciones.className = 'containerPublicaciones';
 
   const usuario = JSON.parse(localStorage.getItem('user'));
-  console.log(usuario);
-  fotoPerfil.src = usuario.photoURL;
+  const usuario2 = JSON.parse(localStorage.getItem('user2'));
+  // console.log(usuario.photoURL, '*************');
+  fotoPerfil.src = usuario ? usuario.photoURL : 'https://i.postimg.cc/fy6ZRsgH/profile.jpg';
+  // console.log(usuario.photoURL, 'foto de perfil');
 
   fotoPerfil.className = 'fotoPerfil';
   postUsuario.placeholder = 'Comparte con la comunidad PlantsLovers';
@@ -57,8 +58,6 @@ export const Wall = (onNavigate) => {
   publicarButton.className = 'publicarButton';
   publicarButton.textContent = 'Publicar';
   postUsuario.id = 'postUsuario';
-  errorPostVacio.className = 'alerta';
-  errorPostVacio.id = 'errorPostVacio';
 
   // Para editar
   let id = '';

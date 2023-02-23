@@ -102,7 +102,8 @@ export const RegisterComponent = (onNavigate) => {
         // eslint-disable-next-line no-console
         console.log('user: ', user);
         // eslint-disable-next-line no-alert
-        crearDocumentoUsuario(user, user.email, user.photoURL);
+        // localStorage.setItem('user', JSON.stringify(user));
+        crearDocumentoUsuario(user, user.email, 'https://i.postimg.cc/fy6ZRsgH/profile.jpg');
         alert('Registro exitoso');
         onNavigate('/login');
       })
