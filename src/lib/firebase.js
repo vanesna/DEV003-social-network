@@ -5,12 +5,15 @@
 import { initializeApp } from 'firebase/app';
 import {
   getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
-  signInWithPopup, GoogleAuthProvider,
+  signInWithPopup, GoogleAuthProvider, updateProfile, signOut,
 } from 'firebase/auth';
 import {
   getFirestore, collection, addDoc, getDocs, onSnapshot,
-  deleteDoc, doc, query, orderBy, serverTimestamp, getDoc, updateDoc,
+  deleteDoc, doc, query, orderBy, serverTimestamp, getDoc, updateDoc, setDoc,
 } from 'firebase/firestore';
+import {
+  getDownloadURL, getStorage, ref, uploadBytesResumable,
+} from 'firebase/storage';
 
 // Enlazamos visual con firebase
 
@@ -28,7 +31,8 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 // Crear nueva cuenta pasando la dirección de correo electrónico y la contraseña del nuevo usuario
-const auth = getAuth(app); // constante para poder autenticar usuarios
+export const auth = getAuth(app); // constante para poder autenticar usuarios
+
 export const register = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
@@ -39,15 +43,18 @@ export const loginWithGoogle = () => signInWithPopup(auth, provider);
 const db = getFirestore(app); // conexion a la base de datos
 const colRef = collection(db, 'posts');
 
-export const sharePost = (text) => {
+export const sharePost = (usuario, text) => {
   // la funcion addDoc agrega documento a la colleccion de Firebase que llamamos posts
   addDoc(colRef, {
+    idu: usuario.uid,
+    nombre: usuario.displayName ? usuario.displayName : usuario.email,
     post: text,
+    likes: 0,
     createdAt: serverTimestamp(),
   });
 };
 // Busca dentro de la colección post y los ordena por fecha de publicación de forma descendente
-const q = query(colRef, orderBy('createdAt', 'desc'));
+const queryInstruction = query(colRef, orderBy('createdAt', 'desc'));
 
 // la funcion getDocs es para obtener documentos
 export const getPosts = () => {
@@ -56,7 +63,7 @@ export const getPosts = () => {
 
 // Función para mostrar todos los posts
 export const onGetPosts = (callback) => {
-  onSnapshot(q, callback);
+  onSnapshot(queryInstruction, callback);
 };
 
 // doc busca 1 documento, de la coleccion posts y me elimina el id usando la funcion deleteDoc
@@ -65,5 +72,37 @@ export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
 // Trae la información de un post
 export const getPost = (id) => getDoc(doc(db, 'posts', id));
 
+export const getUserInfo = (userID) => getDoc(doc(db, 'users', userID));
+
 // Función para actualizar la informacion del post
 export const updatePost = (id, newInfo) => updateDoc(doc(db, 'posts', id), newInfo);
+
+export const crearDocumentoUsuario = (usuario, nombre, foto) => setDoc(doc(db, 'users', usuario.uid), {
+  id: usuario.uid,
+  nombre,
+  email: usuario.email,
+  photoURL: foto,
+});
+
+// let currentUser;
+
+// Editar foto
+export const storage = getStorage(app);
+
+export const saveFiles = (file, filename) => new Promise((resolve) => {
+  const storageref = ref(storage, `/files/${filename}`);
+  const upload = uploadBytesResumable(storageref, file);
+  upload.on('state_changed', () => { }, () => { }, () => {
+    getDownloadURL(upload.snapshot.ref).then((downloadURL) => {
+      // aqui tienen que hacer update dopc de la base de usuarios
+      updateProfile(auth.currentUser, { photoURL: downloadURL });
+      console.log('File available at', downloadURL);
+      resolve(downloadURL);
+      console.log(auth.currentUser);
+    });
+  });
+});
+
+// cerrar sesion
+
+export const logOut = () => signOut(auth);

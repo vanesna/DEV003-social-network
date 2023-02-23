@@ -1,9 +1,11 @@
 import {
-  sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost,
+  sharePost, onGetPosts, getPosts, deletePost, getPost, updatePost, getUserInfo, logOut,
 } from '../lib/firebase.js';
 import { ModalEliminar, modalEditar } from './modal.js';
 
 export const Wall = (onNavigate) => {
+  // ejecutar
+
   // :::.. creación de elementos..::://
 
   // const elementoswall = document.getElementById('elementoswall');
@@ -43,7 +45,11 @@ export const Wall = (onNavigate) => {
   menuDisplayed.id = 'menu-desplegable-id';
 
   containerPublicaciones.className = 'containerPublicaciones';
-  fotoPerfil.src = '\\imagenes\\fotoperfil.jfif';
+
+  const usuario = JSON.parse(localStorage.getItem('user'));
+  console.log(usuario);
+  fotoPerfil.src = usuario.photoURL;
+
   fotoPerfil.className = 'fotoPerfil';
   postUsuario.placeholder = 'Comparte con la comunidad PlantsLovers';
   postUsuario.className = 'postUsuario';
@@ -56,6 +62,9 @@ export const Wall = (onNavigate) => {
 
   // Para editar
   let id = '';
+
+  // Para el usuario actual
+  // let currentUser;
 
   containerTodasLasPublicaciones.className = 'containerTodasPublicaciones';
 
@@ -86,22 +95,43 @@ export const Wall = (onNavigate) => {
     closeButton.addEventListener('click', () => {
       menuDisplayed.style.display = 'none';
     });
+    const miPerfil = document.getElementById('option1');
+    miPerfil.addEventListener('click', () => onNavigate('/profile'));
+
+    const grupos = document.getElementById('option2');
+    grupos.addEventListener('click', () => onNavigate('/grupos'));
+
+    const cerrarSesion = document.getElementById('option3');
+    cerrarSesion.addEventListener('click', () => {
+      logOut().then(() => {
+        // Sign-out successful.
+        localStorage.removeItem('user');
+        alert('Cierre de sesión exitoso');
+        onNavigate('/');
+      })
+        .catch(() => {
+          alert('Algo paso');
+        });
+    });
   });
 
   // Publicar cada uno de los post que hay en la base de datos
   // querySnapshot es para traer los datos que existe en este momento
-  onGetPosts((callback) => {
+  onGetPosts((resultado) => {
     while (containerTodasLasPublicaciones.firstChild) {
       containerTodasLasPublicaciones.removeChild(containerTodasLasPublicaciones.firstChild);
     }
 
-    callback.forEach((doc) => {
-      console.log({ doc });
+    resultado.forEach((doc) => {
+      // console.log({ doc });
       const post = doc.data();
+      console.log('post: ', post);
       const containerCadaPost = document.createElement('div');
       containerCadaPost.className = 'containerCadaPost';
       containerCadaPost.innerHTML += `
-                  <p>${post.post}</p>
+                 
+                  <p class= 'class-name'>${post.nombre}</p><br>
+                  <p class= 'class-post'>${post.post}</p> 
                   <div class= 'contenedorIconos'> 
                   <button class='class-like' >${'\u{1F49A}'}</button>
                   <button class='btn-delete' id= '${doc.id}'>${'🗑️'}</button>
@@ -111,13 +141,13 @@ export const Wall = (onNavigate) => {
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
 
+    // if(auth.currentUser.uid === ){}
     // boton eliminar post
     const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
 
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', ({ target }) => {
         const modal = ModalEliminar();
-        console.log('modal: ', modal.querySelector('#btn-confirm-delete'));
 
         // Abre el modal
         modal.style.display = 'flex';
@@ -175,17 +205,23 @@ export const Wall = (onNavigate) => {
     });
   });
 
+  // resolver promesa de función obtener datos del usuario
+  // getUserInfo(userID).then((respuesta) => {
+  //   fotoPerfil.src = respuesta.photoURL;
+  // });
+
   // Guarda post en la base de datos
   publicarButton.addEventListener('click', (e) => {
     e.preventDefault();
 
     const post = document.getElementById('postUsuario');
-    console.log('post: ', post);
+    // console.log('post: ', post);
 
     if (post.value === '') {
       messageError.innerHTML = 'Escribe algo';
     } else {
-      sharePost(post.value);
+      sharePost(usuario, post.value);
+      console.log('usuario: ', usuario);
       document.getElementById('postUsuario').value = '';
     }
   });

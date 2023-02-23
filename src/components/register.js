@@ -1,4 +1,4 @@
-import { register } from '../lib/firebase.js';
+import { register, crearDocumentoUsuario } from '../lib/firebase.js';
 
 export const RegisterComponent = (onNavigate) => {
   const contenedor = document.createElement('div');
@@ -102,6 +102,7 @@ export const RegisterComponent = (onNavigate) => {
         // eslint-disable-next-line no-console
         console.log('user: ', user);
         // eslint-disable-next-line no-alert
+        crearDocumentoUsuario(user, user.email, user.photoURL);
         alert('Registro exitoso');
         onNavigate('/login');
       })

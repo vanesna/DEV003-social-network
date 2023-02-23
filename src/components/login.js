@@ -3,7 +3,7 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import
 {
   login,
-  loginWithGoogle,
+  loginWithGoogle, crearDocumentoUsuario,
 } from '../lib/firebase';
 
 export const Login = (onNavigate) => {
@@ -79,9 +79,13 @@ export const Login = (onNavigate) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       console.log('token: ', token);
-      // The signed-in user info.
+
       const user = result.user;
       console.log('user: ', user);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      crearDocumentoUsuario(user, user.displayName, user.photoURL);
+
       // IdP data available using getAdditionalUserInfo(result)
       onNavigate('/wall');
     });
