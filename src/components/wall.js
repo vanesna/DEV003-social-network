@@ -120,9 +120,9 @@ export const Wall = (onNavigate) => {
     }
 
     resultado.forEach((doc) => {
-      console.log({ doc });
+      // console.log({ doc });
       const post = doc.data();
-      console.log(doc.id);
+      console.log('post: ', post);
       const containerCadaPost = document.createElement('div');
       containerCadaPost.className = 'containerCadaPost';
       containerCadaPost.innerHTML += `
@@ -145,7 +145,6 @@ export const Wall = (onNavigate) => {
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', ({ target }) => {
         const modal = ModalEliminar();
-        console.log('modal: ', modal.querySelector('#btn-confirm-delete'));
 
         // Abre el modal
         modal.style.display = 'flex';
@@ -213,7 +212,7 @@ export const Wall = (onNavigate) => {
     e.preventDefault();
 
     const post = document.getElementById('postUsuario');
-    console.log('post: ', post);
+    // console.log('post: ', post);
 
     if (post.value === '') {
       messageError.innerHTML = 'Escribe algo';

@@ -47,7 +47,7 @@ export const sharePost = (usuario, text) => {
   // la funcion addDoc agrega documento a la colleccion de Firebase que llamamos posts
   addDoc(colRef, {
     idu: usuario.uid,
-    nombre: auth.currentUser.displayName ? auth.currentUser.displayName : auth.currentUser.email,
+    nombre: usuario.displayName ? usuario.displayName : usuario.email,
     post: text,
     likes: 0,
     createdAt: serverTimestamp(),
