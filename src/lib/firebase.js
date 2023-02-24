@@ -7,10 +7,13 @@ import {
   getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
   signInWithPopup, GoogleAuthProvider, updateProfile, signOut,
 } from 'firebase/auth';
+
 import {
   getFirestore, collection, addDoc, getDocs, onSnapshot,
   deleteDoc, doc, query, orderBy, serverTimestamp, getDoc, updateDoc, setDoc,
+  arrayUnion, arrayRemove,
 } from 'firebase/firestore';
+
 import {
   getDownloadURL, getStorage, ref, uploadBytesResumable,
 } from 'firebase/storage';
@@ -34,6 +37,7 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app); // constante para poder autenticar usuarios
 
 export const register = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+
 export const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
 // login con boton google
@@ -41,18 +45,30 @@ const provider = new GoogleAuthProvider(); // instancia del objeto de proveedor 
 export const loginWithGoogle = () => signInWithPopup(auth, provider);
 
 const db = getFirestore(app); // conexion a la base de datos
+
+export const crearDocumentoUsuario = (usuario, nombre, foto) => setDoc(doc(db, 'users', usuario.uid), {
+  id: usuario.uid,
+  nombre,
+  email: usuario.email,
+  photoURL: foto,
+});
+
 const colRef = collection(db, 'posts');
 
-export const sharePost = (usuario, text) => {
+// arreglo de id de usuario para likes
+export const likes = [];
+
+export const savePost = (usuario, text) => {
   // la funcion addDoc agrega documento a la colleccion de Firebase que llamamos posts
   addDoc(colRef, {
     idu: usuario.uid,
     nombre: usuario.displayName ? usuario.displayName : usuario.email,
     post: text,
-    likes: 0,
+    likes,
     createdAt: serverTimestamp(),
   });
 };
+
 // Busca dentro de la colección post y los ordena por fecha de publicación de forma descendente
 const queryInstruction = query(colRef, orderBy('createdAt', 'desc'));
 
@@ -72,19 +88,13 @@ export const deletePost = (id) => deleteDoc(doc(db, 'posts', id));
 // Trae la información de un post
 export const getPost = (id) => getDoc(doc(db, 'posts', id));
 
-export const getUserInfo = (userID) => getDoc(doc(db, 'users', userID));
+// Trae la información de usuario
+export const getUser = (id) => getDoc(doc(db, 'users', id));
+
+// export const getUserInfo = (userID) => getDoc(doc(db, 'users', userID));
 
 // Función para actualizar la informacion del post
 export const updatePost = (id, newInfo) => updateDoc(doc(db, 'posts', id), newInfo);
-
-export const crearDocumentoUsuario = (usuario, nombre, foto) => setDoc(doc(db, 'users', usuario.uid), {
-  id: usuario.uid,
-  nombre,
-  email: usuario.email,
-  photoURL: foto,
-});
-
-// let currentUser;
 
 // Editar foto
 export const storage = getStorage(app);
@@ -103,6 +113,13 @@ export const saveFiles = (file, filename) => new Promise((resolve) => {
   });
 });
 
-// cerrar sesion
+export const toLike = (id, idu) => updateDoc(doc(db, 'posts', id), {
+  likes: arrayUnion(idu),
+});
 
+export const toDislike = (id, idu) => updateDoc(doc(db, 'posts', id), {
+  likes: arrayRemove(idu),
+});
+
+// cerrar sesion
 export const logOut = () => signOut(auth);

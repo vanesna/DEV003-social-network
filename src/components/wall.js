@@ -1,5 +1,5 @@
 import {
-  sharePost, onGetPosts, deletePost, getPost, updatePost, logOut,
+  savePost, onGetPosts, deletePost, getPost, updatePost, getUser, toLike, toDislike, logOut,
 } from '../lib/firebase.js';
 import { ModalEliminar, modalEditar } from './modal.js';
 
@@ -46,10 +46,10 @@ export const Wall = (onNavigate) => {
   containerPublicaciones.className = 'containerPublicaciones';
 
   const usuario = JSON.parse(localStorage.getItem('user'));
-  const usuario2 = JSON.parse(localStorage.getItem('user2'));
-  // console.log(usuario.photoURL, '*************');
+  // const usuario2 = JSON.parse(localStorage.getItem('user2'));
   fotoPerfil.src = usuario ? usuario.photoURL : 'https://i.postimg.cc/fy6ZRsgH/profile.jpg';
-  // console.log(usuario.photoURL, 'foto de perfil');
+  const currentUser = usuario.uid;
+  console.log('current: ', currentUser);
 
   fotoPerfil.className = 'fotoPerfil';
   postUsuario.placeholder = 'Comparte con la comunidad PlantsLovers';
@@ -61,9 +61,6 @@ export const Wall = (onNavigate) => {
 
   // Para editar
   let id = '';
-
-  // Para el usuario actual
-  // let currentUser;
 
   containerTodasLasPublicaciones.className = 'containerTodasPublicaciones';
 
@@ -125,15 +122,21 @@ export const Wall = (onNavigate) => {
       // console.log({ doc });
       const post = doc.data();
       console.log('post: ', post);
+      const counterLikes = post.likes.length;
+      if (counterLikes === 0) {
+        // document.getElementById(counterLikes).innerHTML = '';
+      }
+      console.log('counterLikes: ', counterLikes);
       const containerCadaPost = document.createElement('div');
       containerCadaPost.className = 'containerCadaPost';
       containerCadaPost.innerHTML += `
                  
                   <p class= 'class-name'>${post.nombre}</p><br>
                   <p class= 'class-post'>${post.post}</p> 
-                  <div class= 'contenedorIconos'> 
-                  <button class='class-like' >${'\u{1F49A}'}</button>
-                  <button class='btn-delete' id= '${doc.id}'>${'🗑️'}</button>
+                  <div class= 'contenedorIconos'>  
+                  <button class='class-like' id= '${doc.id}'>${'\u{1F49A}'}</button>
+                  <p class='counterLikes' id='counterLikes'>${counterLikes} me gusta</p>
+                  <button class='btn-delete' id= '${doc.id}'>${'🗑️'} </button>
                   <button class='class-edit' id= '${doc.id}'>${'🖍️'}</button>
                   </div>`;
 
@@ -202,6 +205,24 @@ export const Wall = (onNavigate) => {
         containerTodasLasPublicaciones.append(modal);
       });
     });
+
+    // boton para dar like
+    const btnLike = containerTodasLasPublicaciones.querySelectorAll('.class-like');
+
+    btnLike.forEach((btn) => {
+      btn.addEventListener('click', async ({ target }) => {
+        const doc = await getPost(target.id);
+        console.log('doc: ', doc);
+        const post = doc.data();
+        console.log('current: ', currentUser);
+        id = target.id;
+        if (post.likes.includes(currentUser)) {
+          toDislike(id, currentUser);
+        } else {
+          toLike(id, currentUser);
+        }
+      });
+    });
   });
 
   // resolver promesa de función obtener datos del usuario
@@ -219,7 +240,7 @@ export const Wall = (onNavigate) => {
     if (post.value === '') {
       messageError.innerHTML = 'Escribe algo';
     } else {
-      sharePost(usuario, post.value);
+      savePost(usuario, post.value);
       console.log('usuario: ', usuario);
       document.getElementById('postUsuario').value = '';
     }

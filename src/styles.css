@@ -363,6 +363,24 @@ html {
   -.1rem -.1rem 1rem #fff ;
   }
 
+  .counterLikes {
+    display: flex;
+    height: 30px;
+    width: 30px;
+    background: rgba(255, 255, 255, 0.458);
+    border: none;
+    border-radius: 30px;
+    font-family: 'Chewy', sans-serif;
+    font-size: 1.5rem;  
+    font-weight: 500;
+    margin: 3%;
+    text-align: center;
+    color: gray;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+  }
+
 .class-like, .btn-delete, .class-editv:hover {
   transform: scale(0.96);
   background: #AEDFE4;
@@ -371,11 +389,13 @@ html {
 }
 
 .class-post {
-  color: gray;
+  color: rgb(83, 78, 78);
+  margin-bottom: 10%;
 }
 
 .class-name {
   color: #049142 ;
+  font-size: 2rem; 
 }
 
 
