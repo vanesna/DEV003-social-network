@@ -121,15 +121,23 @@ export const Wall = (onNavigate) => {
     resultado.forEach((doc) => {
       // console.log({ doc });
       const post = doc.data();
-      console.log('post: ', post);
-      const counterLikes = post.likes.length;
-      if (counterLikes === 0) {
-        // document.getElementById(counterLikes).innerHTML = '';
+      //  console.log('post: ', post);
+      let counterLikes = '';
+      // const counterLikes = post.likes.length;
+      const idOwnerPost = post.idu;
+      // console.log('idOwner: ', idOwnerPost);
+
+      if (post.likes.length > 0) {
+        // counterLikes = post.likes.length;
+        counterLikes = `${post.likes.length}`;
       }
+
       console.log('counterLikes: ', counterLikes);
       const containerCadaPost = document.createElement('div');
       containerCadaPost.className = 'containerCadaPost';
-      containerCadaPost.innerHTML += `
+
+      if (currentUser === idOwnerPost) {
+        containerCadaPost.innerHTML += `
                  
                   <p class= 'class-name'>${post.nombre}</p><br>
                   <p class= 'class-post'>${post.post}</p> 
@@ -139,11 +147,19 @@ export const Wall = (onNavigate) => {
                   <button class='btn-delete' id= '${doc.id}'>${'🗑️'} </button>
                   <button class='class-edit' id= '${doc.id}'>${'🖍️'}</button>
                   </div>`;
-
+      } else {
+        containerCadaPost.innerHTML += `
+                 
+        <p class= 'class-name'>${post.nombre}</p><br>
+        <p class= 'class-post'>${post.post}</p> 
+        <div class= 'contenedorIconos'>  
+        <button class='class-like' id= '${doc.id}'>${'\u{1F49A}'}</button>
+        <p class='counterLikes' id='counterLikes'>${counterLikes} me gusta</p>
+        </div>`;
+      }
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
 
-    // if(auth.currentUser.uid === ){}
     // boton eliminar post
     const btnsDelete = containerTodasLasPublicaciones.querySelectorAll('.btn-delete');
 
