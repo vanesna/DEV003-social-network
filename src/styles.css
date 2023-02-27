@@ -7,6 +7,7 @@
 html {
   font-size: 62.5%;
 }
+
 @font-face {
   font-family: glacial;
   src: url(GlacialIndifference-Regular.otf);
@@ -16,6 +17,7 @@ html {
   font-family: chewy;
   src: url(Chewy.ttf);
 }
+
 .contenedor {
   margin-top: 5%;
   padding: 30px;
@@ -24,7 +26,9 @@ html {
   justify-content: center;
 }
 
-.textobienvenida, .login, .signin {
+.textobienvenida,
+.login,
+.signin {
   background-color: rgba(174, 223, 228, 0.45);
   border: 1px solid #d9d9d9;
   margin: 2%;
@@ -68,16 +72,19 @@ html {
   cursor: pointer;
   transition: all 1s ease;
   box-shadow: .5rem .5rem 1rem #02924A,
-  -.5rem -.5rem 1rem #fff ;
+    -.5rem -.5rem 1rem #fff;
 }
-.start:hover{
+
+.start:hover {
   box-shadow: .5rem .5rem 1rem #fff,
-  -.5rem -.5rem 1rem #02924A;
+    -.5rem -.5rem 1rem #02924A;
 }
-.start:active{
+
+.start:active {
   box-shadow: inset .2rem .2rem 1rem #fff,
-  inset -.2rem -.2rem 1rem #02924A;
+    inset -.2rem -.2rem 1rem #02924A;
 }
+
 .alerta {
   font-family: 'Chewy', sans-serif;
   color: red;
@@ -87,17 +94,19 @@ html {
 
 .pregunta {
   font-family: 'Chewy', sans-serif;
-  color:  #02924A;
+  color: #02924A;
   font-size: 1.5rem;
   margin: 2px;
 }
-.preguntaPassword{
+
+.preguntaPassword {
   font-family: 'Chewy', sans-serif;
-  color:  #02924A;
+  color: #02924A;
   font-size: 1.5rem;
   margin: 2px;
   text-decoration: underline;
 }
+
 .box {
   width: 80%;
   height: 46px;
@@ -109,12 +118,13 @@ html {
     font-size: 45%;
   }
 }
+
 /*Boton de google*/
 @font-face {
   font-family: fuentegoogle;
   src: url(ProductSans-Regular.ttf);
 }
-  
+
 .google {
   background-color: rgb(76, 131, 235);
   display: inline-block;
@@ -126,35 +136,39 @@ html {
   text-align: center;
   color: white;
   box-shadow: 0px 3px 5px #373c3c,
-  -.5rem -.5rem 1rem #fff ;
+    -.5rem -.5rem 1rem #fff;
   cursor: pointer;
-  transition: all 1s ease;  
-}
-.google:hover{
-  box-shadow: .5rem .5rem 1rem #fff,
-  -.5rem -.5rem 1rem #373c3c;
-}
-.google:active{
-  box-shadow: inset .2rem .2rem 1rem #fff,
-  inset -.2rem -.2rem 1rem #373c3c;
+  transition: all 1s ease;
 }
 
-.logoG{
+.google:hover {
+  box-shadow: .5rem .5rem 1rem #fff,
+    -.5rem -.5rem 1rem #373c3c;
+}
+
+.google:active {
+  box-shadow: inset .2rem .2rem 1rem #fff,
+    inset -.2rem -.2rem 1rem #373c3c;
+}
+
+.logoG {
   display: inline-block;
   float: left;
-    margin-left: 10px;
-    width: 50px;
+  margin-left: 10px;
+  width: 50px;
 }
+
 /*barra de navegación*/
 .containerHeader {
-  height:10%;
-  width:100%;
+  height: 10%;
+  width: 100%;
   background: #AEDFE4;
   justify-content: space-around;
   display: flex;
   flex-direction: row;
-  }
-  /*menu desplegable*/
+}
+
+/*menu desplegable*/
 .icon-menu {
   width: 50px;
   height: 50px;
@@ -166,19 +180,22 @@ html {
   cursor: pointer;
   transition: all 1s ease;
   box-shadow: .5rem .5rem 1rem #02924A,
-  -.1rem -.1rem 1rem #fff ;
+    -.1rem -.1rem 1rem #fff;
 }
-.icon-menu:hover{
+
+.icon-menu:hover {
   box-shadow: .5rem .5rem 1rem #fff,
-  -.5rem -.5rem 1rem #fff;
+    -.5rem -.5rem 1rem #fff;
 }
-.icon-menu:active{
+
+.icon-menu:active {
   box-shadow: inset .2rem .2rem 1rem #fff,
-  inset -.2rem -.2rem 1rem #02924A;
-  
+    inset -.2rem -.2rem 1rem #02924A;
+
 }
+
 .menu-nav {
-  background-color:#AEDFE4;
+  background-color: #AEDFE4;
   width: 15%;
   position: fixed;
   top: 80px;
@@ -190,23 +207,28 @@ html {
   border-radius: 15px;
   left: 30px;
   box-shadow: .5rem .5rem 1rem #434444,
-  -.1rem -.1rem 1rem #fff ;
+    -.1rem -.1rem 1rem #fff;
 }
-.menu-nav > li > a:hover{
-  background-color:white;  
+
+.menu-nav>li>a:hover {
+  background-color: white;
 }
+
 .option {
   font-size: 2rem;
   font-family: 'glacial', sans-serif;
   cursor: pointer;
+  text-decoration: none;
+  color: black;
 }
+
 .close-button {
   width: 50px;
   height: 50px;
   border-radius: 30px;
   margin-left: 100px;
   box-shadow: .5rem .5rem 1rem #434444,
-  -.1rem -.1rem 1rem #fff ;
+    -.1rem -.1rem 1rem #fff;
   cursor: pointer;
 }
 
@@ -217,7 +239,8 @@ html {
   margin-top: 15px;
   cursor: pointer;
 }
-.search{
+
+.search {
   margin: 20px;
   padding: 10px;
   display: flex;
@@ -225,7 +248,7 @@ html {
   justify-content: center;
 }
 
-.icon-notificaciones{
+.icon-notificaciones {
   height: 50px;
   width: 50px;
   margin-top: 15px;
@@ -236,19 +259,22 @@ html {
   cursor: pointer;
   transition: all 1s ease;
   box-shadow: .5rem .5rem 1rem #02924A,
-  -.1rem -.1rem 1rem #fff ;
+    -.1rem -.1rem 1rem #fff;
 }
-.icon-notificaciones:hover{
+
+.icon-notificaciones:hover {
   box-shadow: .5rem .5rem 1rem #fff,
-  -.5rem -.5rem 1rem #fff;
+    -.5rem -.5rem 1rem #fff;
 }
-.icon-notificaciones:active{
+
+.icon-notificaciones:active {
   box-shadow: inset .2rem .2rem 1rem #fff,
-  inset -.2rem -.2rem 1rem #02924A;
+    inset -.2rem -.2rem 1rem #02924A;
 }
+
 /*publicaciones y foto del usuario*/
-.containerPublicaciones{
-  height:10%;
+.containerPublicaciones {
+  height: 10%;
   flex-wrap: wrap;
   Display: flex;
   padding: 10px;
@@ -257,9 +283,9 @@ html {
   margin-left: 20%;
   align-items: center;
   justify-content: center;
-  
+
   box-shadow: .5rem .5rem 1rem #434444,
-  -.1rem -.1rem 1rem #fff ;
+    -.1rem -.1rem 1rem #fff;
 }
 
 .fotoPerfil {
@@ -273,10 +299,11 @@ html {
   margin-left: 8px;
   cursor: pointer;
   box-shadow: .5rem .5rem 1rem #434444,
-  -.1rem -.1rem 1rem #fff ;
+    -.1rem -.1rem 1rem #fff;
 }
-.postUsuario{
-  width:80%;
+
+.postUsuario {
+  width: 80%;
   margin: 10px;
   padding: 30px;
   display: flex;
@@ -285,6 +312,7 @@ html {
   border-radius: 20px;
   border-color: #AEDFE4;
 }
+
 .publicarButton {
   width: 20%;
   height: 30%;
@@ -297,16 +325,17 @@ html {
   cursor: pointer;
   transition: all 1s ease;
   box-shadow: .5rem .5rem 1rem #434444,
-  -.1rem -.1rem 1rem #fff ;
-  }
-.publicarButton:hover{
+    -.1rem -.1rem 1rem #fff;
+}
+
+.publicarButton:hover {
   box-shadow: .5rem .5rem 1rem #02924A,
-  -.5rem -.5rem 1rem #fff ;
+    -.5rem -.5rem 1rem #fff;
 }
 
 /*publicaciones de todos los usuarios*/
 
-.containerTodasPublicaciones{
+.containerTodasPublicaciones {
   flex-wrap: wrap;
   padding: 10px;
   margin-top: 5px;
@@ -314,10 +343,10 @@ html {
   margin-left: 20%;
   margin-bottom: 5px;
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
   box-shadow: .5rem .5rem 1rem #434444,
-  -.1rem -.1rem 1rem #fff ;
-  
+    -.1rem -.1rem 1rem #fff;
+
 }
 
 .containerCadaPost {
@@ -334,22 +363,40 @@ html {
   width: 90%;
   background-image: url(https://i.postimg.cc/6qLtGZTK/welcome-to1k.png);
   background-size: cover;
-  border-radius: 8px;  
+  border-radius: 8px;
 }
-.contenedorIconos{
-  display:flex;
+
+.counterLikes {
+  display: flex;
+  height: 30px;
+  border: none;
+  font-family: 'Chewy', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 3%;
+  margin-left: 0.1px;
+  text-align: center;
+  color: gray;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;
+}
+
+.contenedorIconos {
+  display: flex;
   width: 90%;
-  margin-bottom:10px ;
+  margin-bottom: 10px;
 }
-.class-like, .btn-delete, .class-edit {
+
+.class-like {
   display: flex;
   height: 30px;
   width: 30px;
-  background: rgba(255, 255, 255, 0.458);
+  background-color: rgba(255, 255, 255, 0.458);
   border: none;
   border-radius: 30px;
   font-family: 'Chewy', sans-serif;
-  font-size: 2rem;  
+  font-size: 2rem;
   font-weight: 500;
   margin: 3%;
   text-align: center;
@@ -360,32 +407,74 @@ html {
   cursor: pointer;
   transition: all 1s ease;
   box-shadow: .5rem .5rem 1rem #434444,
-  -.1rem -.1rem 1rem #fff ;
-  }
+    -.1rem -.1rem 1rem #fff;
+}
 
-  .counterLikes {
-    display: flex;
-    height: 30px;
-    width: 30px;
-    background: rgba(255, 255, 255, 0.458);
-    border: none;
-    border-radius: 30px;
-    font-family: 'Chewy', sans-serif;
-    font-size: 1.5rem;  
-    font-weight: 500;
-    margin: 3%;
-    text-align: center;
-    color: gray;
-    align-items: center;
-    justify-content: center;
-    padding: 1px;
-  }
-
-.class-like, .btn-delete, .class-editv:hover {
+.class-like:hover {
   transform: scale(0.96);
-  background: #AEDFE4;
+  background-color: #AEDFE4;
   box-shadow: .5rem .5rem 1rem #02924A,
-  -.5rem -.5rem 1rem #fff ;
+    -.5rem -.5rem 1rem #fff;
+}
+.class-like-mayor {
+  background-color: #AEDFE4;
+}
+
+
+.btn-delete {
+  display: flex;
+  height: 30px;
+  width: 30px;
+  background-color: rgba(255, 255, 255, 0.458);
+  border: none;
+  border-radius: 30px;
+  font-family: 'Chewy', sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 3%;
+  text-align: center;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 1s ease;
+  box-shadow: .5rem .5rem 1rem #434444,
+    -.1rem -.1rem 1rem #fff;
+}
+.btn-delete:hover {
+  transform: scale(0.96);
+  background-color: #AEDFE4;
+  box-shadow: .5rem .5rem 1rem #02924A,
+    -.5rem -.5rem 1rem #fff;
+}
+
+.class-edit {
+  display: flex;
+  height: 30px;
+  width: 30px;
+  background-color: rgba(255, 255, 255, 0.458);
+  border: none;
+  border-radius: 30px;
+  font-family: 'Chewy', sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 3%;
+  text-align: center;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 1s ease;
+  box-shadow: .5rem .5rem 1rem #434444,
+    -.1rem -.1rem 1rem #fff;
+}
+.class-edit:hover {
+  transform: scale(0.96);
+  background-color: #AEDFE4;
+  box-shadow: .5rem .5rem 1rem #02924A,
+    -.5rem -.5rem 1rem #fff;
 }
 
 .class-post {
@@ -394,33 +483,36 @@ html {
 }
 
 .class-name {
-  color: #049142 ;
-  font-size: 2rem; 
+  color: #049142;
+  font-size: 2rem;
 }
 
 
-footer{
-  
+footer {
+
   justify-content: center;
   bottom: 0;
-  width:100%;
+  width: 100%;
   margin-top: 5%;
   padding: 30px;
-  
+
 }
-.footerTitle{
+
+.footerTitle {
   text-align: center;
   font-size: 1.5rem;
 
 }
-.footerAutoras{
+
+.footerAutoras {
   text-align: center;
   font-size: 1rem;
 }
-.banderas{
+
+.banderas {
   width: 80px;
   height: 20px;
-  
+
 }
 
 /* popup modal eliminar post  */
@@ -452,11 +544,12 @@ footer{
   margin: 5px;
   font-family: 'glacial', sans-serif;
   font-size: 1.6rem;
-  color: #02924A; 
+  color: #02924A;
 
 }
 
-.Aceptar, .Cancelar {
+.Aceptar,
+.Cancelar {
   width: 40%;
   height: 50%;
   background: #bed73d;
@@ -465,6 +558,6 @@ footer{
   font-size: 1.5rem;
   margin: 5%;
   cursor: pointer;
-  
+
 
 }

@@ -81,7 +81,7 @@ export const Wall = (onNavigate) => {
     menuDisplayed.style.display = 'flex';
     const options = `<nav class='menu-nav'>
     <li><a class='option' id='option1'>Mi Perfil</a></li>
-    <li><a class='option' id='option2'>Mis grupos</a></li>
+    <li><a href='https://angiecombita.my.canva.site/dafbvb8btgu' class='option' id='option2'>Guía de plantas</a></li>
     <li><a class='option' id='option3'>Cerrar Sesión</a></li>
     <img src='https://i.postimg.cc/mg8dpxNp/icon-close.png' alt='close' class='close-button' id='close-button'>
     </nav>`;
@@ -137,8 +137,18 @@ export const Wall = (onNavigate) => {
       containerCadaPost.className = 'containerCadaPost';
 
       if (currentUser === idOwnerPost) {
-        containerCadaPost.innerHTML += `
-                 
+        if (counterLikes > 0) {
+          containerCadaPost.innerHTML += `
+                  <p class= 'class-name'>${post.nombre}</p><br>
+                  <p class= 'class-post'>${post.post}</p> 
+                  <div class= 'contenedorIconos'>  
+                  <button class='class-like class-like-mayor' id= '${doc.id}'>${'\u{1F49A}'}</button>
+                  <p class='counterLikes' id='counterLikes'>${counterLikes} me gusta</p>
+                  <button class='btn-delete' id= '${doc.id}'>${'🗑️'} </button>
+                  <button class='class-edit' id= '${doc.id}'>${'🖍️'}</button>
+                  </div>`;
+        } else{
+          containerCadaPost.innerHTML += `
                   <p class= 'class-name'>${post.nombre}</p><br>
                   <p class= 'class-post'>${post.post}</p> 
                   <div class= 'contenedorIconos'>  
@@ -147,15 +157,26 @@ export const Wall = (onNavigate) => {
                   <button class='btn-delete' id= '${doc.id}'>${'🗑️'} </button>
                   <button class='class-edit' id= '${doc.id}'>${'🖍️'}</button>
                   </div>`;
+        }
+        
       } else {
-        containerCadaPost.innerHTML += `
-                 
-        <p class= 'class-name'>${post.nombre}</p><br>
-        <p class= 'class-post'>${post.post}</p> 
-        <div class= 'contenedorIconos'>  
-        <button class='class-like' id= '${doc.id}'>${'\u{1F49A}'}</button>
-        <p class='counterLikes' id='counterLikes'>${counterLikes} me gusta</p>
-        </div>`;
+        if (counterLikes > 0) {
+          containerCadaPost.innerHTML += `
+            <p class= 'class-name'>${post.nombre}</p><br>
+            <p class= 'class-post'>${post.post}</p> 
+            <div class= 'contenedorIconos'>  
+            <button class='class-like class-like-mayor' id= '${doc.id}'>${'\u{1F49A}'}</button>
+            <p class='counterLikes' id='counterLikes'>${counterLikes} me gusta</p>
+            </div>`;
+        } else {
+          containerCadaPost.innerHTML += `
+            <p class= 'class-name'>${post.nombre}</p><br>
+            <p class= 'class-post'>${post.post}</p> 
+            <div class= 'contenedorIconos'>  
+            <button class='class-like' id= '${doc.id}'>${'\u{1F49A}'}</button>
+            <p class='counterLikes' id='counterLikes'>${counterLikes} me gusta</p>
+            </div>`;
+        }
       }
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });
