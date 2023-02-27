@@ -4,7 +4,7 @@ import { Login } from './components/login.js';
 import { RegisterComponent } from './components/register.js';
 import { Wall } from './components/wall.js';
 import { Profile } from './components/profile.js';
-import { Grupos } from './components/grupos.js';
+
 
 const root = document.getElementById('root');
 // Nuestras rutas
@@ -13,8 +13,7 @@ const routes = {
   '/login': Login,
   '/register': RegisterComponent,
   '/wall': Wall,
-  '/profile': Profile,
-  '/grupos': Grupos,
+  '/profile': Profile,  
 };
 
 const onNavigate = (pathname) => { // es el "/" de cada ruta, nombre de la ruta
