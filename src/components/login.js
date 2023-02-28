@@ -66,7 +66,7 @@ export const Login = (onNavigate) => {
   main.append(imageLogo, formulario);
 
   registerButton.addEventListener('click', () => {
-    onNavigate('/register');
+    onNavigate('/DEV003-social-network/register');
   });
 
   // const botonGoogle = document.querySelector('#googleLogin');
@@ -87,7 +87,7 @@ export const Login = (onNavigate) => {
       crearDocumentoUsuario(user, user.displayName, user.photoURL);
 
       // IdP data available using getAdditionalUserInfo(result)
-      onNavigate('/wall');
+      onNavigate('/DEV003-social-network/wall');
     });
   });
 
@@ -101,7 +101,7 @@ export const Login = (onNavigate) => {
       console.log('user: ', user);
       // eslint-disable-next-line no-alert
       localStorage.setItem('user2', JSON.stringify(user));
-      onNavigate('/wall');
+      onNavigate('/DEV003-social-network/wall');
     })
       .catch((error) => {
         const errorCode = error.code;
