@@ -95,10 +95,7 @@ export const Wall = (onNavigate) => {
       menuDisplayed.style.display = 'none';
     });
     const miPerfil = document.getElementById('option1');
-    miPerfil.addEventListener('click', () => onNavigate('/profile'));
-
-    const grupos = document.getElementById('option2');
-    grupos.addEventListener('click', () => onNavigate('/grupos'));
+    miPerfil.addEventListener('click', () => onNavigate('/DEV003-social-network/profile'));
 
     const cerrarSesion = document.getElementById('option3');
     cerrarSesion.addEventListener('click', () => {
@@ -106,7 +103,7 @@ export const Wall = (onNavigate) => {
         // Sign-out successful.
         localStorage.removeItem('user');
         alert('Cierre de sesión exitoso');
-        onNavigate('/');
+        onNavigate('/DEV003-social-network/');
       })
         .catch(() => {
           alert('Algo paso');

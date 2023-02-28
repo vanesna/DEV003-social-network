@@ -54,17 +54,14 @@ export const Profile = (onNavigate) => {
       menuDisplayed.style.display = 'none';
     });
     const miPerfil = document.getElementById('option1');
-    miPerfil.addEventListener('click', () => onNavigate('/profile'));
-
-    const grupos = document.getElementById('option2');
-    grupos.addEventListener('click', () => onNavigate('/grupos'));
+    miPerfil.addEventListener('click', () => onNavigate('/DEV003-social-network/profile'));
 
     const cerrarSesion = document.getElementById('option3');
     cerrarSesion.addEventListener('click', () => {
       logOut().then(() => {
         // Sign-out successful.
         alert('Cierre de sesión exitoso');
-        onNavigate('/login');
+        onNavigate('/DEV003-social-network/login');
       })
         .catch(() => {
           alert('Algo paso');
@@ -84,7 +81,7 @@ export const Profile = (onNavigate) => {
   });
 
   // Para regresar al muro
-  nombreSocialNetwork.addEventListener('click', () => onNavigate('/wall'));
+  nombreSocialNetwork.addEventListener('click', () => onNavigate('/DEV003-social-network/wall'));
 
   containerHeader.append(iconMenu, nombreSocialNetwork, search, iconNotificaciones);
 
