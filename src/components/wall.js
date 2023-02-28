@@ -24,6 +24,7 @@ export const Wall = (onNavigate) => {
   const fotoPerfil = document.createElement('img');
   const postUsuario = document.createElement('textarea');
   const messageError = document.createElement('p');
+  const contenedorBoton = document.createElement('div');
   const publicarButton = document.createElement('button');
 
   // publicaciones de toda la comunidad plants lovers
@@ -39,7 +40,7 @@ export const Wall = (onNavigate) => {
   search.className = 'search';
   search.placeholder = '\u{1F50D} Search';
   iconNotificaciones.className = 'icon-notificaciones';
-  iconNotificaciones.src = '\\imagenes\\planta.png';
+  iconNotificaciones.src = 'https://i.postimg.cc/wjKz2JSD/planta.png';
   menuDisplayed.className = 'menu-desplegable';
   menuDisplayed.id = 'menu-desplegable-id';
 
@@ -55,6 +56,7 @@ export const Wall = (onNavigate) => {
   postUsuario.placeholder = 'Comparte con la comunidad PlantsLovers';
   postUsuario.className = 'postUsuario';
   messageError.className = 'alerta';
+  contenedorBoton.className = 'contenedorBoton';
   publicarButton.className = 'publicarButton';
   publicarButton.textContent = 'Publicar';
   postUsuario.id = 'postUsuario';
@@ -73,8 +75,9 @@ export const Wall = (onNavigate) => {
   );
 
   containerHeader.append(iconMenu, nombreSocialNetwork, search, iconNotificaciones);
+  contenedorBoton.append(publicarButton);
 
-  containerPublicaciones.append(fotoPerfil, postUsuario, messageError, publicarButton);
+  containerPublicaciones.append(fotoPerfil, postUsuario, messageError, contenedorBoton);
 
   // Menú hambuguesa
   iconMenu.addEventListener('click', () => {
@@ -147,7 +150,7 @@ export const Wall = (onNavigate) => {
                   <button class='btn-delete' id= '${doc.id}'>${'🗑️'} </button>
                   <button class='class-edit' id= '${doc.id}'>${'🖍️'}</button>
                   </div>`;
-        } else{
+        } else {
           containerCadaPost.innerHTML += `
                   <p class= 'class-name'>${post.nombre}</p><br>
                   <p class= 'class-post'>${post.post}</p> 
@@ -158,25 +161,22 @@ export const Wall = (onNavigate) => {
                   <button class='class-edit' id= '${doc.id}'>${'🖍️'}</button>
                   </div>`;
         }
-        
-      } else {
-        if (counterLikes > 0) {
-          containerCadaPost.innerHTML += `
+      } else if (counterLikes > 0) {
+        containerCadaPost.innerHTML += `
             <p class= 'class-name'>${post.nombre}</p><br>
             <p class= 'class-post'>${post.post}</p> 
             <div class= 'contenedorIconos'>  
             <button class='class-like class-like-mayor' id= '${doc.id}'>${'\u{1F49A}'}</button>
             <p class='counterLikes' id='counterLikes'>${counterLikes} me gusta</p>
             </div>`;
-        } else {
-          containerCadaPost.innerHTML += `
+      } else {
+        containerCadaPost.innerHTML += `
             <p class= 'class-name'>${post.nombre}</p><br>
             <p class= 'class-post'>${post.post}</p> 
             <div class= 'contenedorIconos'>  
             <button class='class-like' id= '${doc.id}'>${'\u{1F49A}'}</button>
             <p class='counterLikes' id='counterLikes'>${counterLikes} me gusta</p>
             </div>`;
-        }
       }
       containerTodasLasPublicaciones.appendChild(containerCadaPost);
     });

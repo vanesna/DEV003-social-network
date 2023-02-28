@@ -11,7 +11,7 @@ export const Login = (onNavigate) => {
   main.setAttribute('class', 'contenedor');
 
   const imageLogo = document.createElement('img');
-  imageLogo.src = 'imagenes/logo.png';
+  imageLogo.src = 'https://i.postimg.cc/yYS4cYYJ/logo.png';
   imageLogo.setAttribute('class', 'imagen');
 
   const formulario = document.createElement('form');
