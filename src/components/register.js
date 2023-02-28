@@ -6,7 +6,7 @@ export const RegisterComponent = (onNavigate) => {
   contenedor.id = 'viewconteiner';
 
   const imageLogo = document.createElement('img');
-  imageLogo.src = 'imagenes/logo.png';
+  imageLogo.src = 'https://i.postimg.cc/yYS4cYYJ/logo.png';
   imageLogo.setAttribute('class', 'imagen');
   contenedor.id = 'imagenlogo';
 
