@@ -84,7 +84,7 @@ export const Wall = (onNavigate) => {
     menuDisplayed.style.display = 'flex';
     const options = `<nav class='menu-nav'>
     <li><a class='option' id='option1'>Mi Perfil</a></li>
-    <li><a href='https://angiecombita.my.canva.site/dafbvb8btgu' class='option' id='option2'>Guía de plantas</a></li>
+    <li><a href='https://angiecombita.my.canva.site/likeplantslocalhost' class='option' id='option2'>Guía de plantas</a></li>
     <li><a class='option' id='option3'>Cerrar Sesión</a></li>
     <img src='https://i.postimg.cc/mg8dpxNp/icon-close.png' alt='close' class='close-button' id='close-button'>
     </nav>`;
