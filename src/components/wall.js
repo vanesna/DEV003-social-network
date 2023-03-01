@@ -95,7 +95,7 @@ export const Wall = (onNavigate) => {
       menuDisplayed.style.display = 'none';
     });
     const miPerfil = document.getElementById('option1');
-    miPerfil.addEventListener('click', () => onNavigate('/DEV003-social-network/profile'));
+    miPerfil.addEventListener('click', () => onNavigate('/profile'));
 
     const cerrarSesion = document.getElementById('option3');
     cerrarSesion.addEventListener('click', () => {
@@ -103,7 +103,7 @@ export const Wall = (onNavigate) => {
         // Sign-out successful.
         localStorage.removeItem('user');
         alert('Cierre de sesión exitoso');
-        onNavigate('/DEV003-social-network/');
+        onNavigate('/');
       })
         .catch(() => {
           alert('Algo paso');
